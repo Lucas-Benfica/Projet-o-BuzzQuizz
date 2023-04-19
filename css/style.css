@@ -26,13 +26,14 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: auto;
-    
 }
 
 .quizz-create {
     display: flex;
-    align-content: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
     height: 180px;
     width: 1050px;
     margin-top: 150px;
@@ -40,8 +41,74 @@ body {
     border-radius: 5px;
 }
 
-.quizz-create
+.quizz-create button {
+    width: 151px;
+    height: 40px;
+    font-weight: 400;
+    font-size: 21px;
+    color: #EC362D;
+    background: none;
+    border: 1px dashed #EC362D;
+    border-radius: 20px;
+}
+
+.quizz-create p {
+    font-weight: 400;
+    font-size: 21px;
+    color: #B9B9B9;
+    width: 250px;
+    height: auto;
+    text-align: center;
+}
 
 .quizz-everything {
-    fill: lightgray;
+    margin-top: 75px;
+    width: 1050px;
+}
+
+.quizz-everything h1 {
+    font-weight: 700;
+    font-size: 20px;
+    color: #000000;
+}
+
+.quizz-dashboard {
+    margin-top: 12px;
+    width: 100%;
+    display: flex;
+    gap: 15px;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.quizz-card {
+    width: 340px;
+    height: 180px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.quizz-card div {
+    position: absolute;
+    width: 340px;
+    height: 180px;
+    border-radius: 5px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%);
+}
+
+.quizz-card img {
+    width: 340px;
+    height: 180px;
+    border-radius: 5px; 
+}
+
+.quizz-card p {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;;
+    color: #FFFFFF;
+    font-weight: 400;
+    font-size: 19px;
 }
