@@ -1,0 +1,24 @@
+.content {
+    width: 100%;
+    height: auto;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.header{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+
+}
+
+.quiz-create {
+    fill: lightgray;
+}
+
+.quiz-everything {
+    fill: lightgray;
+}
