@@ -46,7 +46,7 @@ function openQuizz(id) {
     promise.catch(erro => {console.log('Erro ao acessar as mensagens');atualizarMensagens()});
     
 }
-// exibe o quiz na tela 2 para voce jogar
+// exibe o quiz na tela 2 para voce jogar lucas fez
 
 function playQuizz(quizz){
     const title = document.querySelector('.quizz-name');
