@@ -18,4 +18,5 @@ body {
     font-weight: 700;
     color: white;
     font-size: 37px;
+    z-index: 5;
 }
