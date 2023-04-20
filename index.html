@@ -60,8 +60,90 @@
         </div>
     </div>
     <div class="tela-2"></div>
-    <div class="tela-3"></div>
+    <div class="tela-3">
+        <div class="tela-3-1">
+            <h1>Comece pelo começo</h1>
+            <div class="input-box">
+                <input type="text" placeholder="Título do seu quizz">
+                <input type="text" placeholder="URL da imagem do seu quizz">
+                <input type="text" placeholder="Quantidade de perguntas do quizz">
+                <input type="text" placeholder="Quantidade de níveis do quizz">
+            </div>
+            <button>Prosseguir pra criar perguntas</button>
+        </div>
+        <div class="tela-3-2">
+            <h1>Crie suas perguntas</h1>
+            <div class="input-box questions">
+                <div>
+                    <h1>Pergunta 1</h1>
+                    <input type="text" placeholder="Texto da pergunta">
+                    <input type="text" placeholder="Cor de fundo da pergunta">
+                </div>
+                <div>
+                    <h1>Resposta correta</h1>
+                    <input type="text" placeholder="Resposta correta">
+                    <input type="text" placeholder="URL da imagem">
+                </div>
+                <div>
+                    <h1>Resposta incorretas</h1>
+                    <div>
+                        <input type="text" placeholder="Resposta incorreta 1">
+                        <input type="text" placeholder="URL da imagem 1">
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Resposta incorreta 2">
+                        <input type="text" placeholder="URL da imagem 2">
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Resposta incorreta 3">
+                        <input type="text" placeholder="URL da imagem 3">
+                    </div>
+                </div>
+            </div>
+            <div class="next-question">
+                <h1>Pergunta 2</h1>
+                <ion-icon name="create-outline"></ion-icon>
+            </div>
+            <div class="next-question">
+                <h1>Pergunta 3</h1>
+                <ion-icon name="create-outline"></ion-icon>
+            </div>
+            <button>Prosseguir pra criar níveis</button>
+        </div>
+        <div class="tela-3-3">
+            <h1>Agora, decida os níveis</h1>
+            <div class="input-box questions levels">
+                <h1>Nível 1</h1>
+                <input type="text" placeholder="Título do nível">
+                <input type="text" placeholder="% de acerto mínima">
+                <input type="text" placeholder="URL da imagem do nível">
+                <input type="text" placeholder="Descrição do nível">
+            </div>
+            <div class="next-question">
+                <h1>Nível 2</h1>
+                <ion-icon name="create-outline"></ion-icon>
+            </div>
+            <div class="next-question">
+                <h1>Nível 2</h1>
+                <ion-icon name="create-outline"></ion-icon>
+            </div>
+            <button>Finalizar Quizz</button>
+        </div>
+        <div class="tela-3-4">
+            <h1>Seu quizz está pronto!</h1>
+            <div class="quizz-card"> 
+                <div></div> 
+                <img src="https://www.estadao.com.br/resizer/IRYoVtytYhgIf3H6Wl-E5sk6N0A=/1200x675/filters:format(jpg):quality(80):focal(-5x-5:5x5)/cloudfront-us-east-1.images.arcpublishing.com/estadao/6VARRFT6DFMB7JJCUOEPIMOWLE.jpg" alt="">
+                <p>O quão Potterhead é você?</p>
+            </div>
+            <button>Acessar Quizz</button>
+            <button class="button-home">Voltar pra home</button>
+        </div>
+    </div>
 
     <script src="./js/script.js"></script>
+    
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
