@@ -27,6 +27,14 @@
     background: none;
     border: 1px dashed #EC362D;
     border-radius: 20px;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+.quizz-create button:hover {
+    border: none;
+    background: #EC362D;
+    color: #FFFFFF;
 }
 
 .quizz-create p {

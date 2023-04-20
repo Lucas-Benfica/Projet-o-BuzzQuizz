@@ -41,4 +41,16 @@ function openQuizz(id) {
     // funçãoCriadaPeloLucas(id);
 }
 
+// apenas faz a logica de troca de tela para a tela de criação de quizz;
+function buttonCreateQuiz() {
+    let screen_1 = document.querySelector('.tela-1');
+    screen_1.style.display = 'none';
+
+    let screen_3 = document.querySelector('.tela-3');
+    screen_3.style.display = 'flex';
+
+    let screen_3_1 = document.querySelector('.tela-3-1');
+    screen_3_1.style.display = 'flex';
+}
+
 fetchAllQuizzes();
