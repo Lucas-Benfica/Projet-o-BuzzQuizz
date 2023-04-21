@@ -1,7 +1,6 @@
 axios.defaults.headers.common['Authorization'] = 'nCM6PO5gWtHryDCaDluDWakn';
 
 // busca todos os quizzes na API e aciona função showAllQuizzes(quizzes)
-
 function fetchAllQuizzes() {
     const url = 'https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes';
 
@@ -39,16 +38,16 @@ function openQuizz(id) {
 
     let screen_2 = document.querySelector('.tela-2');
     screen_2.style.display = 'flex';
-    // funçãoCriadaPeloLucas(id);
+
     let url = `https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes/${id}`;
     const promise = axios.get(url);
     promise.then( playQuizz );
-    promise.catch(erro => {console.log('Erro ao acessar as mensagens');atualizarMensagens()});
-    
+    promise.catch(erro => {console.log('Erro ao acessar o quizz');});
 }
-// exibe o quiz na tela 2 para voce jogar
 
+// exibe o quiz na tela 2 para voce jogar
 function playQuizz(quizz){
+    console.log(quizz.data)
     const title = document.querySelector('.quizz-name');
 
     title.innerHTML = '';
@@ -88,8 +87,8 @@ function playQuizz(quizz){
         `;
 
     });
+    
 }
-
 
 // apenas faz a logica de troca de tela para a tela de criação de quizz;
 function buttonCreateQuiz() {
@@ -102,7 +101,36 @@ function buttonCreateQuiz() {
     let screen_3_1 = document.querySelector('.tela-3-1');
     screen_3_1.style.display = 'flex';
 }
+
+function finishedQuizz(levels, right) {
+    const result_session = document.querySelector('.result');
+
+    const hitPercentage = Math.round((100 * right) / 3);
+    
+    const level = levels.find(level => {
+        if(level.minValue > hitPercentage) {
+            return true;
+        }
+    })
+
+    setTimeout(() => {    
+        result_session.innerHTML += `
+            <div class="nota">
+                ${hitPercentage}% de acerto: ${level.title}
+            </div>
+            <div class="final">
+                <img src="${level.image}">
+                <div>${level.text}</div>
+            </div>
+        `;    
+
+        result_session.scrollIntoView();
+    }, 2000);
+}
+
+// função de embaralhamento
 function comparador(){
     return Math.random() - 0.5;
 }
+
 fetchAllQuizzes();
