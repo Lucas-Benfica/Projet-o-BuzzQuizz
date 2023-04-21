@@ -152,7 +152,7 @@ const screen_3_1 = document.querySelector('.tela-3-1');
 const screen_3_2 = document.querySelector('.tela-3-2');
 const screen_3_3 = document.querySelector('.tela-3-3');
 
-const questionForm = ``
+
 
 function buttonInitializeUserQuizz() {
     // get values from user input
@@ -163,12 +163,49 @@ function buttonInitializeUserQuizz() {
     
     // if user input valid goto next part of quizz creation, else alert user
     if(customQuizzCheckUserInputPart01(cstmTitle,cstmImage,cstmQuestionCt,cstmLevels)) {
-        createQuizShowSecondScreen();
+        createQuizQuestions(cstmQuestionCt);
+    }    
+}
+
+function createQuizQuestions(questionCount) {
+    createQuizShowSecondScreen();
+
+    for (let i = 0; i < questionCount; i++) {
+        screen_3_2.innerHTML += `<div class="input-box questions placeholder">
+        <div>
+            <h1>Pergunta ${i+1}</h1>
+            <input id="question-${i+1}-title" type="text" placeholder="Texto da pergunta">
+            <input id="question-${i+1}-bgColor" type="text" placeholder="Cor de fundo da pergunta">
+        </div>
+        <div>
+            <h1>Resposta correta</h1>
+            <input id="question-${i+1}-correctAnswer-text" type="text" placeholder="Resposta correta">
+            <input id="question-${i+1}-correctAnswer-img" type="text" placeholder="URL da imagem">
+        </div>
+        <div>
+            <h1>Resposta incorretas</h1>
+            <div>
+                <input id="question-${i+1}-wrongAnswer01-text" type="text" placeholder="Resposta incorreta 1">
+                <input id="question-${i+1}-wrongAnswer01-img" type="text" placeholder="URL da imagem 1">
+            </div>
+            <div>
+                <input id="question-${i+1}-wrongAnswer02-text" type="text" placeholder="Resposta incorreta 2">
+                <input id="question-${i+1}-wrongAnswer02-img" type="text" placeholder="URL da imagem 2">
+            </div>
+            <div>
+                <input id="question-${i+1}-wrongAnswer03-text" type="text" placeholder="Resposta incorreta 3">
+                <input id="question-${i+1}-wrongAnswer03-img" type="text" placeholder="URL da imagem 3">
+            </div>
+        </div>
+        </div>`
     }
 
-    console.log(cstmTitle,cstmImage,cstmQuestionCt,cstmLevels);
-    
-    
+    screen_3_2.innerHTML += `<button onclick="buttonDefineQuizzLevels()">Prosseguir pra criar níveis</button>`
+}
+
+// abrir/fechar div de pergunta, como no layout do figma
+function toggleQuestionFormVisibility() {
+
 }
 
 function buttonDefineQuizzLevels() {
@@ -181,7 +218,7 @@ function buttonFinalizeQuizz() {
 }
 
 function customQuizzCheckUserInputPart01(title, img, questionCt, levelCt) {
-    if(title.length > 20) {
+    if(20 < title.length < 65) {
         alert("Título deve ter menos de 20 caractéres")
         return false
     }
@@ -208,12 +245,12 @@ function customQuizzCheckUserInputPart02(text, bgColor, img, answers) {
 
 }
 
-function customQuizzCheckUserInputPart02(title, percentage, img, levelDescription, levelPercentage) {
+function customQuizzCheckUserInputPart03(title, percentage, img, levelDescription, levelPercentage) {
 
 }
 
 function renderQuestionFormHTML(questionNum) {
-
+    screen_3_2.innerHTML += questionForm;
 }
 
 function renderLevelFormHTML(levelNum) {
@@ -223,6 +260,8 @@ function renderLevelFormHTML(levelNum) {
 function axiosUploadQuizz() {
 
 }
+
+// peguei essa função pra checar se uma string é URL válida do Mr Gepeto... se alguém tiver uma solução mais "normal"... é nois! RegEx.... complicado...
 
 function isUrl(str) {
     const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
