@@ -105,6 +105,7 @@ function playQuizz(quizz){
 let acertou = 0;
 let nPlay = 0;
 function checkAnswer(option){
+
     option.classList.add("selected");
     nPlay++;
     //Pegar o elemento pai
@@ -173,7 +174,7 @@ function finishedQuizz(levels, right) {
 
         /*lucas - add pois estava ficando um espaço em branco no quiz antes dos botões*/
         result_session.style.display = 'flex';
-        
+
         result_session.scrollIntoView();
     }, 2000);
 }
