@@ -8,7 +8,6 @@ function fetchAllQuizzes() {
     .then((res) => {
         const quizzes = res.data;
         showAllQuizzes(quizzes);
-        console.log("atualizou");
     })
     .catch((err) => {
         console.log(err);
@@ -51,7 +50,7 @@ function openQuizz(id) {
 let quizzCurrent = undefined;
 function playQuizz(quizz){
     quizzCurrent = quizz;
-    console.log(quizz.data)
+    console.log(quizz.data);
 
     const title = document.querySelector('.quizz-name');
     title.innerHTML = '';
@@ -142,7 +141,10 @@ function checkAnswer(option, id){
 
     let next = document.getElementById(`${id + 1}`);
     
-    setTimeout( () => {next.scrollIntoView({ behavior: "smooth" }) }, 2000);
+    setTimeout( () => {
+        next.scrollIntoView({ behavior: "smooth" });
+        window.scrollBy(0, -100);
+    }, 2000);
 
 }
 
