@@ -104,6 +104,8 @@
 .result{
     width: 727px;
     height: 500px;
+    display: flex;
+    flex-direction: column;
 }
 
 .result .nota{

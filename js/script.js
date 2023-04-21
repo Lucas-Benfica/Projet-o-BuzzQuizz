@@ -46,10 +46,12 @@ function openQuizz(id) {
 }
 
 // exibe o quiz na tela 2 para voce jogar
+let quizzCurrent = undefined;
 function playQuizz(quizz){
+    quizzCurrent = quizz;
     console.log(quizz.data)
-    const title = document.querySelector('.quizz-name');
 
+    const title = document.querySelector('.quizz-name');
     title.innerHTML = '';
     title.innerHTML += `
         <div><p>${quizz.data.title}</p></div>
@@ -57,7 +59,7 @@ function playQuizz(quizz){
     `;
 
     const questionsScreen = document.querySelector('.quizz-questions');
-    
+    questionsScreen.innerHTML = '';
     let questions = quizz.data.questions;
     let options = [];
     
@@ -84,16 +86,27 @@ function playQuizz(quizz){
             </div>
         </div>
         `;
-        console.log(options);
     });
+
+    const result = document.querySelector('.result');
+    result.innerHTML = '';
+    result.style.display = 'none';
+
+    const buttons = document.querySelector('.buttons');
+    buttons.innerHTML = '';
+    buttons.innerHTML += `
+        <div class="restart" onclick="restart()">Reiniciar Quiz</div>
+        <div class="back">Voltar para home</div>
+    `;
     
 }
 
 //Funçao para validar a escolha e contar os acertor, e add o css necessário.
 let acertou = 0;
+let nPlay = 0;
 function checkAnswer(option){
     option.classList.add("selected");
-
+    nPlay++;
     //Pegar o elemento pai
     let options = option.parentNode;
     //pegar uma lista das opçoes
@@ -118,7 +131,10 @@ function checkAnswer(option){
         //temporário, isso desabilita o onclick, mas vamos pensar na melhor maneira para fazer isso
         optionsList[i].onclick = null;
     }
-
+    
+    if(nPlay == quizzCurrent.data.questions.length){
+        finishedQuizz(quizzCurrent.data.levels, acertou);
+    }
 }
 
 // apenas faz a logica de troca de tela para a tela de criação de quizz;
@@ -135,6 +151,9 @@ function buttonCreateQuizz() {
 
 function finishedQuizz(levels, right) {
     const result_session = document.querySelector('.result');
+
+    /*lucas - add pois estava ficando um espaço em branco no quiz antes dos botões*/
+    result_session.style.display = 'flex';
 
     const hitPercentage = Math.round((100 * right) / 3);
     
@@ -164,4 +183,10 @@ function comparador(){
     return Math.random() - 0.5;
 }
 
+// Funcção para reiniciar o quizz
+function restart(){
+    acertou = 0;
+    nPlay = 0;
+    playQuizz(quizzCurrent);
+}
 fetchAllQuizzes();
