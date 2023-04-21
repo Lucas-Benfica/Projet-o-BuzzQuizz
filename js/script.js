@@ -160,23 +160,93 @@ const screen_3_1 = document.querySelector('.tela-3-1');
 const screen_3_2 = document.querySelector('.tela-3-2');
 const screen_3_3 = document.querySelector('.tela-3-3');
 
-// apenas faz a logica de troca de tela para a tela de criação de quizz;
-function buttonCreateQuizz() {
-    screen_1.style.display = 'none';
-    screen_3.style.display = 'flex';
-    screen_3_1.style.display = 'flex';
-}
+const questionForm = ``
 
 function buttonInitializeUserQuizz() {
+    // get values from user input
+    cstmTitle = document.getElementById('cstm-title').value;
+    cstmImage = document.getElementById('cstm-quizzImage').value;
+    cstmQuestionCt = document.getElementById('cstm-questionCount').value;
+    cstmLevels = document.getElementById('cstm-levelCount').value;
+    
     // if user input valid goto next part of quizz creation, else alert user
-    createQuizShowSecondScreen();
+    if(customQuizzCheckUserInputPart01(cstmTitle,cstmImage,cstmQuestionCt,cstmLevels)) {
+        createQuizShowSecondScreen();
+    }
+
+    console.log(cstmTitle,cstmImage,cstmQuestionCt,cstmLevels);
+    
     
 }
 
 function buttonDefineQuizzLevels() {
     // if user input valid goto next part of quizz creation, else alert user
     createQuizShowThirdScreen();
-    
+}
+
+function buttonFinalizeQuizz() {
+
+}
+
+function customQuizzCheckUserInputPart01(title, img, questionCt, levelCt) {
+    if(title.length > 20) {
+        alert("Título deve ter menos de 20 caractéres")
+        return false
+    }
+
+    else if (!(isUrl(img))) {
+        alert("Imagem deve ser uma URL válida")
+        return false
+    }
+
+    else if (questionCt < 3) {
+        alert("Quizz deve conter mínimo de três perguntas");
+        return false
+    }
+
+    else if (levelCt < 2) {
+        alert("Quizz deve conter mínimo de dois níveis");
+        return false
+    }
+
+    return true
+}
+
+function customQuizzCheckUserInputPart02(text, bgColor, img, answers) {
+
+}
+
+function customQuizzCheckUserInputPart02(title, percentage, img, levelDescription, levelPercentage) {
+
+}
+
+function renderQuestionFormHTML(questionNum) {
+
+}
+
+function renderLevelFormHTML(levelNum) {
+
+}
+
+function axiosUploadQuizz() {
+
+}
+
+function isUrl(str) {
+    const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+      '((([a-zA-Z\\d]([a-zA-Z\\d-]{0,61}[a-zA-Z\\d])?)\\.)+[a-zA-Z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-zA-Z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-zA-Z\\d%_.~+=-]*)?' + // query string
+      '(\\#[-a-zA-Z\\d_]*)?$', 'i'); // fragment locator
+    return !!pattern.test(str);
+  }
+
+// apenas faz a logica de troca de tela para a tela de criação de quizz;
+function buttonCreateQuizz() {
+    screen_1.style.display = 'none';
+    screen_3.style.display = 'flex';
+    screen_3_1.style.display = 'flex';
 }
 
 function createQuizShowSecondScreen() {
