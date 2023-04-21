@@ -59,6 +59,7 @@
 
 .input-box input::placeholder {
     font-style: italic;
+    color: #BABABA;
     font-weight: 400;
     font-size: 19px;
 }

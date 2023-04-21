@@ -11,13 +11,14 @@
     <link rel="stylesheet" href="./css/screen_3.css">
 
     <title>BuzzQuizz</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 
 <body>
     <div class="header">
         BuzzQuizz
     </div>
-
+<!-- Tela exibir/escolher quizzes API & escolher/criar quizz de usuário -->
     <div class="tela-1">
         <div class="quizz-create">
             <p> Você não criou nenhum quizz ainda :(</p>
@@ -61,6 +62,7 @@
         </div>
     </div>
 
+<!-- Tela fazer quizz -->
     <div class="tela-2">
         
         <div class="quizz-name"></div> 
@@ -73,20 +75,23 @@
 
     </div>
 
+<!-- Tela criar quizz de usuário [pt 1/4] -->
     <div class="tela-3">
         <div class="tela-3-1">
             <h1>Comece pelo começo</h1>
             <div class="input-box">
-                <input type="text" placeholder="Título do seu quizz">
-                <input type="text" placeholder="URL da imagem do seu quizz">
-                <input type="text" placeholder="Quantidade de perguntas do quizz">
-                <input type="text" placeholder="Quantidade de níveis do quizz">
+                <input id="cstm-title" type="text" placeholder="Título do seu quizz">
+                <input id="cstm-quizzImage" type="text" placeholder="URL da imagem do seu quizz">
+                <input id="cstm-questionCount" type="text" placeholder="Quantidade de perguntas do quizz">
+                <input id="cstm-levelCount" type="text" placeholder="Quantidade de níveis do quizz">
             </div>
-            <button>Prosseguir pra criar perguntas</button>
+            <button onclick="buttonInitializeUserQuizz()">Prosseguir pra criar perguntas</button>
         </div>
+
+<!-- Tela criar quizz de usuário [pt 2/4] - criar perguntas -->
         <div class="tela-3-2">
             <h1>Crie suas perguntas</h1>
-            <div class="input-box questions">
+            <div class="input-box questions placeholder">
                 <div>
                     <h1>Pergunta 1</h1>
                     <input type="text" placeholder="Texto da pergunta">
@@ -121,8 +126,10 @@
                 <h1>Pergunta 3</h1>
                 <ion-icon name="create-outline"></ion-icon>
             </div>
-            <button>Prosseguir pra criar níveis</button>
+            <button onclick="buttonDefineQuizzLevels()">Prosseguir pra criar níveis</button>
         </div>
+
+<!-- Tela criar quizz de usuário [pt 3/4] - criar níveis -->
         <div class="tela-3-3">
             <h1>Agora, decida os níveis</h1>
             <div class="input-box questions levels">
@@ -142,6 +149,7 @@
             </div>
             <button>Finalizar Quizz</button>
         </div>
+<!-- Tela criar quizz de usuário [pt 4/4] - visualizar quizz -->
         <div class="tela-3-4">
             <h1>Seu quizz está pronto!</h1>
             <div class="quizz-card"> 
