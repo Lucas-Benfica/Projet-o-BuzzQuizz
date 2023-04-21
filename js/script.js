@@ -162,6 +162,17 @@ const screen_3_1 = document.querySelector('.tela-3-1');
 const screen_3_2 = document.querySelector('.tela-3-2');
 const screen_3_3 = document.querySelector('.tela-3-3');
 
+let questionText = '';
+let questionColor = '';
+let correctAnswerText = '';
+let correctAnswerImg = '';
+let wrongAnswer01Text = '';
+let wrongAnswer01Img = '';
+let wrongAnswer02Text = '';
+let wrongAnswer02Img = '';
+let wrongAnswer03Text = '';
+let wrongAnswer03Img = '';
+
 
 
 function buttonInitializeUserQuizz() {
@@ -260,18 +271,18 @@ function customQuizzCheckUserInputQuizzInit(title, img, questionCt, levelCt) {
 
 function customQuizzCheckUserInputQuestion(questionNum) {
     // check if valid: text, bgColor, img, answers
-    const questionText = document.getElementById(`question-${questionNum}-text`).value;
-    const questionColor = document.getElementById(`question-${questionNum}-bgColor`).value;
-    const correctAnswerText = document.getElementById(`question-${questionNum}-correctAnswer-text`).value;
-    const correctAnswerImg = document.getElementById(`question-${questionNum}-correctAnswer-img`).value;
-    const wrongAnswer01Text = document.getElementById(`question-${questionNum}-wrongAnswer01-text`).value;
-    const wrongAnswer01Img = document.getElementById(`question-${questionNum}-wrongAnswer01-img`).value;
-    const wrongAnswer02Text = document.getElementById(`question-${questionNum}-wrongAnswer02-text`).value;
-    const wrongAnswer02Img = document.getElementById(`question-${questionNum}-wrongAnswer02-img`).value;
-    const wrongAnswer03Text = document.getElementById(`question-${questionNum}-wrongAnswer03-text`).value;
-    const wrongAnswer03Img = document.getElementById(`question-${questionNum}-wrongAnswer03-img`).value;
+    questionText = document.getElementById(`question-${questionNum}-text`).value;
+    questionColor = document.getElementById(`question-${questionNum}-bgColor`).value;
+    correctAnswerText = document.getElementById(`question-${questionNum}-correctAnswer-text`).value;
+    correctAnswerImg = document.getElementById(`question-${questionNum}-correctAnswer-img`).value;
+    wrongAnswer01Text = document.getElementById(`question-${questionNum}-wrongAnswer01-text`).value;
+    wrongAnswer01Img = document.getElementById(`question-${questionNum}-wrongAnswer01-img`).value;
+    wrongAnswer02Text = document.getElementById(`question-${questionNum}-wrongAnswer02-text`).value;
+    wrongAnswer02Img = document.getElementById(`question-${questionNum}-wrongAnswer02-img`).value;
+    wrongAnswer03Text = document.getElementById(`question-${questionNum}-wrongAnswer03-text`).value;
+    wrongAnswer03Img = document.getElementById(`question-${questionNum}-wrongAnswer03-img`).value;
     
-    // bem vindo ao inferninho de ifs. talvez um switch case teria sido mais elegante.... mas parece estar funcionando...
+    // bem vindo ao inferninho de ifs. talvez um switch case teria sido mais elegante... mas já estava quase no fim quando pensei sobre...
 
     if(questionText.length < 20 || questionText === null) {
         alert(`Texto da pergunta ${questionNum} deve ter mínimo de 20 caractéres`)
