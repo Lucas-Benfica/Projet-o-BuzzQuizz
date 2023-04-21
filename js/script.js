@@ -8,11 +8,13 @@ function fetchAllQuizzes() {
     .then((res) => {
         const quizzes = res.data;
         showAllQuizzes(quizzes);
+        console.log("atualizou");
     })
     .catch((err) => {
         console.log(err);
         return err;
     })
+
 }
 
 // recebe array de todos os quizzes e faz a exibição
@@ -62,14 +64,14 @@ function playQuizz(quizz){
     questionsScreen.innerHTML = '';
     let questions = quizz.data.questions;
     let options = [];
-    
+    let cont = 0;
     questions.forEach( question => {
         options = question.answers;
         options.sort(comparador);
         let texto = '';
         options.forEach( option => {
                     texto += `
-                    <div class="option ${option.isCorrectAnswer}" onclick="checkAnswer(this)">
+                    <div class="option ${option.isCorrectAnswer}" onclick="checkAnswer(this, ${cont})">
                         <img src="${option.image}">
                         <div>${option.text}</div>
                     </div>
@@ -77,15 +79,15 @@ function playQuizz(quizz){
                 })
         questionsScreen.innerHTML += `
         <div>
-            <div class="ask" style="background-color: ${question.color}";>
+            <div id="${cont}" class="ask" style="background-color: ${question.color}";>
                 <p>${question.title}</p>
             </div>
-            <div class="options">
-            ${texto}
-        
+            <div  class="options ${cont}">
+            ${texto}       
             </div>
         </div>
         `;
+        cont++;
     });
 
     const result = document.querySelector('.result');
@@ -104,7 +106,7 @@ function playQuizz(quizz){
 //Funçao para validar a escolha e contar os acertos, e add o css necessário.
 let acertou = 0;
 let nPlay = 0;
-function checkAnswer(option){
+function checkAnswer(option, id){
 
     option.classList.add("selected");
     nPlay++;
@@ -137,6 +139,11 @@ function checkAnswer(option){
         const questions = quizzCurrent.data.questions.length;
         finishedQuizz(quizzCurrent.data.levels, acertou, questions);
     }
+
+    let next = document.getElementById(`${id + 1}`);
+    
+    setTimeout( () => {next.scrollIntoView({ behavior: "smooth" }) }, 2000);
+
 }
 
 
@@ -247,6 +254,8 @@ function back(){
     screen_1.style.display = 'flex';
 
     window.scrollTo(0,0);
+
+    fetchAllQuizzes();
 
 }
 
