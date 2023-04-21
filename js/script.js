@@ -101,7 +101,7 @@ function playQuizz(quizz){
     
 }
 
-//Funçao para validar a escolha e contar os acertor, e add o css necessário.
+//Funçao para validar a escolha e contar os acertos, e add o css necessário.
 let acertou = 0;
 let nPlay = 0;
 function checkAnswer(option){
@@ -137,17 +137,55 @@ function checkAnswer(option){
     }
 }
 
+
+// INÍCIO - CRIAÇÃO DE QUIZZ DO USUÁRIO
+// inicializar variáveis de quizz do usuário
+let cstmTitle = '';
+let cstmImage = '';
+let cstmQuestionCt = -1;
+let cstmLevels = -1;
+
+const screen_1 = document.querySelector('.tela-1');
+const screen_3 = document.querySelector('.tela-3');
+const screen_3_1 = document.querySelector('.tela-3-1');
+const screen_3_2 = document.querySelector('.tela-3-2');
+const screen_3_3 = document.querySelector('.tela-3-3');
+
 // apenas faz a logica de troca de tela para a tela de criação de quizz;
 function buttonCreateQuizz() {
-    let screen_1 = document.querySelector('.tela-1');
     screen_1.style.display = 'none';
-
-    let screen_3 = document.querySelector('.tela-3');
     screen_3.style.display = 'flex';
-
-    let screen_3_1 = document.querySelector('.tela-3-1');
     screen_3_1.style.display = 'flex';
 }
+
+function buttonInitializeUserQuizz() {
+    // if user input valid goto next part of quizz creation, else alert user
+    createQuizShowSecondScreen();
+    
+}
+
+function buttonDefineQuizzLevels() {
+    // if user input valid goto next part of quizz creation, else alert user
+    createQuizShowThirdScreen();
+    
+}
+
+function createQuizShowSecondScreen() {
+    screen_1.style.display = 'none';
+    screen_3.style.display = 'flex';
+    screen_3_1.style.display = 'none';
+    screen_3_2.style.display = 'flex';
+}
+
+function createQuizShowThirdScreen() {
+    screen_1.style.display = 'none';
+    screen_3.style.display = 'flex';
+    screen_3_1.style.display = 'none';
+    screen_3_2.style.display = 'none';
+    screen_3_3.style.display = 'flex';
+}
+
+// FIM - CRIAÇÃO DE QUIZZ DO USUÁRIO
 
 function finishedQuizz(levels, right) {
     const result_session = document.querySelector('.result');
@@ -183,7 +221,7 @@ function comparador(){
     return Math.random() - 0.5;
 }
 
-// Funcção para reiniciar o quizz
+// Função para reiniciar o quizz
 function restart(){
     acertou = 0;
     nPlay = 0;
