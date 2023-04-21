@@ -133,7 +133,8 @@ function checkAnswer(option){
     }
     
     if(nPlay == quizzCurrent.data.questions.length){
-        finishedQuizz(quizzCurrent.data.levels, acertou);
+        const questions = quizzCurrent.data.questions.length;
+        finishedQuizz(quizzCurrent.data.levels, acertou, questions);
     }
 }
 
@@ -187,13 +188,21 @@ function createQuizShowThirdScreen() {
 
 // FIM - CRIAÇÃO DE QUIZZ DO USUÁRIO
 
-function finishedQuizz(levels, right) {
+function finishedQuizz(levels, right, questions) {
     const result_session = document.querySelector('.result');
 
-    const hitPercentage = Math.round((100 * right) / 3);
+    const hitPercentage = Math.round((100 * right) / questions);
     
+    let greater = 0;
+
+    for(i=(levels.length-1); i > 0; i--) {
+        if(greater < levels[i].minValue) {
+            greater = levels[i].minValue;
+        }
+    }
+
     const level = levels.find(level => {
-        if(level.minValue > hitPercentage) {
+        if(greater == level.minValue) {
             return true;
         }
     })
@@ -228,6 +237,7 @@ function restart(){
     window.scrollTo(0,0);
     playQuizz(quizzCurrent);
 }
+
 function back(){
     let screen_2 = document.querySelector('.tela-2');
     screen_2.style.display = 'none';
@@ -238,4 +248,5 @@ function back(){
     window.scrollTo(0,0);
 
 }
+
 fetchAllQuizzes();
