@@ -96,7 +96,7 @@ function playQuizz(quizz){
     buttons.innerHTML = '';
     buttons.innerHTML += `
         <div class="restart" onclick="restart()">Reiniciar Quiz</div>
-        <div class="back">Voltar para home</div>
+        <div class="back" onclick="back()">Voltar para home</div>
     `;
     
 }
@@ -152,9 +152,6 @@ function buttonCreateQuizz() {
 function finishedQuizz(levels, right) {
     const result_session = document.querySelector('.result');
 
-    /*lucas - add pois estava ficando um espaço em branco no quiz antes dos botões*/
-    result_session.style.display = 'flex';
-
     const hitPercentage = Math.round((100 * right) / 3);
     
     const level = levels.find(level => {
@@ -174,6 +171,9 @@ function finishedQuizz(levels, right) {
             </div>
         `;    
 
+        /*lucas - add pois estava ficando um espaço em branco no quiz antes dos botões*/
+        result_session.style.display = 'flex';
+        
         result_session.scrollIntoView();
     }, 2000);
 }
@@ -187,6 +187,17 @@ function comparador(){
 function restart(){
     acertou = 0;
     nPlay = 0;
+    window.scrollTo(0,0);
     playQuizz(quizzCurrent);
+}
+function back(){
+    let screen_2 = document.querySelector('.tela-2');
+    screen_2.style.display = 'none';
+    
+    let screen_1 = document.querySelector('.tela-1');
+    screen_1.style.display = 'flex';
+
+    window.scrollTo(0,0);
+
 }
 fetchAllQuizzes();
