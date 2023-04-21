@@ -43,10 +43,10 @@ function openQuizz(id) {
     let url = `https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes/${id}`;
     const promise = axios.get(url);
     promise.then( playQuizz );
-    promise.catch(erro => {console.log('Erro ao acessar as mensagens');atualizarMensagens()});
+    promise.catch(erro => {console.log('Erro ao acessar o quizz')});
     
 }
-// exibe o quiz na tela 2 para voce jogar lucas fez
+// exibe o quiz na tela 2 para voce jogar
 
 function playQuizz(quizz){
     const title = document.querySelector('.quizz-name');
@@ -65,11 +65,10 @@ function playQuizz(quizz){
     questions.forEach( question => {
         options = question.answers;
         options.sort(comparador);
-        
         let texto = '';
         options.forEach( option => {
                     texto += `
-                    <div class="option" onclick="checkAnswer(${option.isCorrectAnswer})">
+                    <div class="option ${option.isCorrectAnswer}" onclick="checkAnswer(this)">
                         <img src="${option.image}">
                         <div>${option.text}</div>
                     </div>
@@ -86,13 +85,30 @@ function playQuizz(quizz){
             </div>
         </div>
         `;
-
+        console.log(options);
     });
 }
 
 
+function checkAnswer(option){
+    option.classList.add("selected");
+
+    let pai = option.parentNode;
+    console.log(pai);
+
+    let filho = pai.children;
+    console.log(filho);
+    //após o clicar selected
+    //var filho = document.getElementById("filho");
+    //var pai = filho.parentNode;
+        //O restante das opções deve ter opacidade 0,3
+        //A resposta correta deve ficar verde e as erradas vermelhas
+    // colocar as classes certo ou errado e escolhido
+
+}
+
 // apenas faz a logica de troca de tela para a tela de criação de quizz;
-function buttonCreateQuiz() {
+function buttonCreateQuizz() {
     let screen_1 = document.querySelector('.tela-1');
     screen_1.style.display = 'none';
 
