@@ -89,9 +89,35 @@ function playQuizz(quizz){
     
 }
 
-
+//Funçao para validar a escolha e contar os acertor, e add o css necessário.
+let acertou = 0;
 function checkAnswer(option){
-    
+    option.classList.add("selected");
+
+    //Pegar o elemento pai
+    let options = option.parentNode;
+    //pegar uma lista das opçoes
+    let optionsList = options.querySelectorAll(".option");
+    //verifica se acertou
+    if(option.classList.contains('true')){
+        acertou++;
+    }
+    //add o css
+    for(let i=0; i < optionsList.length; i++){
+        if(optionsList[i].classList.contains('selected')){
+            
+        }else{
+            optionsList[i].classList.add('ofuscado');
+        }
+        if(optionsList[i].classList.contains('true')){
+            optionsList[i].classList.add('right');
+        }else if(optionsList[i].classList.contains('false')){
+            optionsList[i].classList.add('wrong');
+        }
+
+        //temporário, isso desabilita o onclick, mas vamos pensar na melhor maneira para fazer isso
+        optionsList[i].onclick = null;
+    }
 
 }
 
