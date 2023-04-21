@@ -13,6 +13,7 @@ function fetchAllQuizzes() {
         console.log(err);
         return err;
     })
+
 }
 
 // recebe array de todos os quizzes e faz a exibição
@@ -49,7 +50,7 @@ function openQuizz(id) {
 let quizzCurrent = undefined;
 function playQuizz(quizz){
     quizzCurrent = quizz;
-    console.log(quizz.data)
+    console.log(quizz.data);
 
     const title = document.querySelector('.quizz-name');
     title.innerHTML = '';
@@ -62,14 +63,14 @@ function playQuizz(quizz){
     questionsScreen.innerHTML = '';
     let questions = quizz.data.questions;
     let options = [];
-    
+    let cont = 0;
     questions.forEach( question => {
         options = question.answers;
         options.sort(comparador);
         let texto = '';
         options.forEach( option => {
                     texto += `
-                    <div class="option ${option.isCorrectAnswer}" onclick="checkAnswer(this)">
+                    <div class="option ${option.isCorrectAnswer}" onclick="checkAnswer(this, ${cont})">
                         <img src="${option.image}">
                         <div>${option.text}</div>
                     </div>
@@ -77,15 +78,15 @@ function playQuizz(quizz){
                 })
         questionsScreen.innerHTML += `
         <div>
-            <div class="ask" style="background-color: ${question.color}";>
+            <div id="${cont}" class="ask" style="background-color: ${question.color}";>
                 <p>${question.title}</p>
             </div>
-            <div class="options">
-            ${texto}
-        
+            <div  class="options ${cont}">
+            ${texto}       
             </div>
         </div>
         `;
+        cont++;
     });
 
     const result = document.querySelector('.result');
@@ -104,7 +105,8 @@ function playQuizz(quizz){
 //Funçao para validar a escolha e contar os acertos, e add o css necessário.
 let acertou = 0;
 let nPlay = 0;
-function checkAnswer(option){
+function checkAnswer(option, id){
+
     option.classList.add("selected");
     nPlay++;
     //Pegar o elemento pai
@@ -136,6 +138,14 @@ function checkAnswer(option){
         const questions = quizzCurrent.data.questions.length;
         finishedQuizz(quizzCurrent.data.levels, acertou, questions);
     }
+
+    let next = document.getElementById(`${id + 1}`);
+    
+    setTimeout( () => {
+        next.scrollIntoView({ behavior: "smooth" });
+        window.scrollBy(0, -100);
+    }, 2000);
+
 }
 
 
@@ -329,7 +339,7 @@ function finishedQuizz(levels, right, questions) {
 
         /*lucas - add pois estava ficando um espaço em branco no quiz antes dos botões*/
         result_session.style.display = 'flex';
-        
+
         result_session.scrollIntoView();
     }, 2000);
 }
@@ -355,6 +365,8 @@ function back(){
     screen_1.style.display = 'flex';
 
     window.scrollTo(0,0);
+
+    fetchAllQuizzes();
 
 }
 
