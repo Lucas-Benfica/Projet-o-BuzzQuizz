@@ -2,7 +2,7 @@
 let cstmTitle = '';
 let cstmImage = '';
 let cstmQuestionCt = -1;
-let cstmLevels = -1;
+let cstmLevelCt = -1;
 
 let questionText = '';
 let questionColor = '';
@@ -31,10 +31,10 @@ function buttonInitializeUserQuizz() {
     cstmTitle = document.getElementById('cstm-title').value;
     cstmImage = document.getElementById('cstm-quizzImage').value;
     cstmQuestionCt = document.getElementById('cstm-questionCount').value;
-    cstmLevels = document.getElementById('cstm-levelCount').value;
+    cstmLevelCt = document.getElementById('cstm-levelCount').value;
     
     // if user input valid goto next part of quizz creation, else alert user
-    if(customQuizzCheckUserInputQuizzInit(cstmTitle,cstmImage,cstmQuestionCt,cstmLevels)) {
+    if(customQuizzCheckUserInputQuizzInit(cstmTitle,cstmImage,cstmQuestionCt,cstmLevelCt)) {
         createQuizQuestions(cstmQuestionCt);
     }    
 }
@@ -101,7 +101,7 @@ function createQuizzLevels (levelCount) {
         <input id="level-${i+1}-description" type="text" placeholder="Descrição do nível">
     </div>`
 
-    customQuizzCheckUserInputPart03(i+1);
+    
     }
 
     screen_3_3.innerHTML += `<button onclick="buttonFinalizeQuizz()">Finalizar Quizz</button>`
@@ -120,7 +120,7 @@ function buttonDefineQuizzLevels() {
     }
 
     if(userInputIsValid) {
-        createQuizzLevels(levelCount);
+        createQuizzLevels(cstmLevelCt);
     }
 }
 
@@ -200,17 +200,21 @@ function customQuizzCheckUserInputQuestion(questionNum) {
         return false
     }
 
-    else if(wrongAnswer02Text.length < 10 || wrongAnswer02Text === null) {
-        alert(`Texto da segunda resposta errada da pergunta ${questionNum} deve ter mínimo de 10 caractéres`)
-        return false
-    } 
+    // ultimos dois else-if testam antes se texto está null, pois pode ter apenas uma ou duas respostas erradas. ou seja: se não tiver segunda/terceira resposta incorreta, está válido.
 
-    else if(!isUrl(wrongAnswer02Img) || wrongAnswer02Img === null) {
-        alert(`Imagem da segunda resposta errada da pergunta ${questionNum} deve ser uma URL válida`)
-        return false
+    else if (!wrongAnswer02Text === null) {
+        if(wrongAnswer02Text.length < 10) {
+            alert(`Texto da segunda resposta errada da pergunta ${questionNum} deve ter mínimo de 10 caractéres`)
+            return false
+        } 
+    
+        else if(!isUrl(wrongAnswer02Img) || wrongAnswer02Img === null) {
+            alert(`Imagem da segunda resposta errada da pergunta ${questionNum} deve ser uma URL válida`)
+            return false
+        }
     }
 
-    // ultimo else-if testa antes se texto está null, pois pode ter apenas duas respostas erradas. ou seja, se não tiver terceira resposta incorreta, está válido.
+    
     else if (!wrongAnswer03Text === null) {
         if(wrongAnswer03Text.length < 10) {
             alert(`Texto da tercecira resposta errada da pergunta ${questionNum} deve ter mínimo de 10 caractéres`)
@@ -234,22 +238,22 @@ function customQuizzCheckUserInputPart03(levelNum) {
     levelDescription = document.getElementById(`level-${levelNum}-description`).value;
 
     if (levelTitle.length < 10 || levelTitle === null) {
-        alert("Título do nível ${levelNum} deve ter mínimo de 10 caractéres");
+        alert(`Título do nível ${levelNum} deve ter mínimo de 10 caractéres`);
         return false
     }
 
     else if (!(0 < levelPercentage) || !(levelPercentage < 100) ) {
-        alert("Porcentagem do nível ${levelNum} deve ter valor entre 0 e 100");
+        alert(`Porcentagem do nível ${levelNum} deve ter valor entre 0 e 100`);
         return false
     }
 
     else if(!isUrl(levelImg)) {
-        alert("Imagem do nível ${levelNum} deve ser uma URL válida");
+        alert(`Imagem do nível ${levelNum} deve ser uma URL válida`);
         return false
     }
 
     else if(levelDescription.length < 30) {
-        alert("Descrição do nível ${levelNum} deve ter no mínimo 30 caractéres");
+        alert(`Descrição do nível ${levelNum} deve ter no mínimo 30 caractéres`);
         return false
     }
 
@@ -274,12 +278,18 @@ function toggleQuestionFormVisibility(id) {
 }
 
 function buttonFinalizeQuizz() {
+    let userInputIsValid = true;
 
-}
+    for(let i = 0; i < cstmQuestionCt; i++) {
+        if(!customQuizzCheckUserInputPart03(i+1)) {
+            userInputIsValid = false;
+            break;
+        }
+    }
 
-
-function renderLevelFormHTML(levelNum) {
-    screen_3_3.innerHTML += levelForm;
+    if(userInputIsValid) {
+        axiosUploadQuizz();
+    }
 }
 
 function axiosUploadQuizz() {
