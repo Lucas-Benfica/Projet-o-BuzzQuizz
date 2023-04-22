@@ -15,6 +15,11 @@ let wrongAnswer02Img = '';
 let wrongAnswer03Text = '';
 let wrongAnswer03Img = '';
 
+let levelTitle = '';
+let levelPercentage = '';
+let levelImg = '';
+let levelDescription = '';
+
 const screen_1 = document.querySelector('.tela-1');
 const screen_3 = document.querySelector('.tela-3');
 const screen_3_1 = document.querySelector('.tela-3-1');
@@ -71,6 +76,23 @@ function createQuizQuestions(questionCount) {
     screen_3_2.innerHTML += `<button onclick="buttonDefineQuizzLevels()">Prosseguir pra criar níveis</button>`
 }
 
+function createQuizzLevels (levelCount) {
+    createQuizShowThirdScreen();
+
+    for (let i = 0; i < levelCount; i++) {
+        screen_3_3.innerHTML += `<div class="input-box questions levels">
+        <h1>Nível ${i+1}</h1>
+        <input id="level-${i+1}-title" type="text" placeholder="Título do nível">
+        <input id="level-${i+1}-percentage" type="text" placeholder="% de acerto mínima">
+        <input id="level-${i+1}-img" type="text" placeholder="URL da imagem do nível">
+        <input id="level-${i+1}-description" type="text" placeholder="Descrição do nível">
+    </div>`
+
+    customQuizzCheckUserInputPart03(i+1);
+    }
+
+    screen_3_3.innerHTML += `<button onclick="buttonFinalizeQuizz()">Finalizar Quizz</button>`
+}
 
 
 function buttonDefineQuizzLevels() {
@@ -85,7 +107,7 @@ function buttonDefineQuizzLevels() {
     }
 
     if(userInputIsValid) {
-        createQuizShowThirdScreen();
+        createQuizzLevels(levelCount);
     }
 }
 
@@ -192,8 +214,33 @@ function customQuizzCheckUserInputQuestion(questionNum) {
 }
 
 // validar input de terceira tela de criação de quizz do usuário (níveis)
-function customQuizzCheckUserInputPart03(title, percentage, img, levelDescription, levelPercentage) {
+function customQuizzCheckUserInputPart03(levelNum) {
+    levelTitle = document.getElementById(`level-${levelNum}-title`).value;
+    levelPercentage = document.getElementById(`level-${levelNum}-percentage`).value;
+    levelImg = document.getElementById(`level-${levelNum}-img`).value;
+    levelDescription = document.getElementById(`level-${levelNum}-description`).value;
 
+    if (levelTitle.length < 10 || levelTitle === null) {
+        alert("Título do nível ${levelNum} deve ter mínimo de 10 caractéres");
+        return false
+    }
+
+    else if (!(0 < levelPercentage) || !(levelPercentage < 100) ) {
+        alert("Porcentagem do nível ${levelNum} deve ter valor entre 0 e 100");
+        return false
+    }
+
+    else if(!isUrl(levelImg)) {
+        alert("Imagem do nível ${levelNum} deve ser uma URL válida");
+        return false
+    }
+
+    else if(levelDescription.length < 30) {
+        alert("Descrição do nível ${levelNum} deve ter no mínimo 30 caractéres");
+        return false
+    }
+
+    else {return true}
 }
 
 // abrir/fechar div de pergunta, como no layout do figma
@@ -205,12 +252,9 @@ function buttonFinalizeQuizz() {
 
 }
 
-function renderQuestionFormHTML(questionNum) {
-    screen_3_2.innerHTML += questionForm;
-}
 
 function renderLevelFormHTML(levelNum) {
-
+    screen_3_3.innerHTML += levelForm;
 }
 
 function axiosUploadQuizz() {
