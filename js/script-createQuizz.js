@@ -288,11 +288,30 @@ function buttonFinalizeQuizz() {
     }
 
     if(userInputIsValid) {
-        axiosUploadQuizz();
+        //axiosUploadQuizz();
     }
 }
 
 function axiosUploadQuizz() {
+    //Temos que criar o vetor pra guardar as questions e os levels
+
+    let fullQuizz = [{
+        title: cstmTitle,
+        image: cstmImage,
+        questions: userQuestions,
+        levels: userLevels 
+    }];
+
+    let promise = axios.post('https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes', fullQuizz);
+    promise.then((userQuizz) => {
+        //Aqui temos que salvar o quizz no storege
+        const quizzSerializado = JSON.stringify(userQuizz); //Tranforma o nosso array de objt em uma string
+
+        localStorage.setItem("userQuizz", quizzSerializado); //Envia essa string para o storege, depois se quisermos puxar e usar ela temos que trensformar de volta.
+
+    });
+    promise.catch((userQuizz) => console.log("EXEMPLO_TESTE"));
+
 
 }
 
