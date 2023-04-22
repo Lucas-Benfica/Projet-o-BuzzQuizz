@@ -42,36 +42,49 @@ function buttonInitializeUserQuizz() {
 // renderizar HTML de criação das perguntas do quizz
 function createQuizQuestions(questionCount) {
     createQuizShowSecondScreen();
-
+    
     for (let i = 0; i < questionCount; i++) {
-        screen_3_2.innerHTML += `<div class="input-box questions placeholder">
-        <div>
+        screen_3_2.innerHTML += `
+        <div id="${i+1}" class="next-question boxPergunta${i+1}" onclick="toggleQuestionFormVisibility(this.id)">
             <h1>Pergunta ${i+1}</h1>
-            <input id="question-${i+1}-text" type="text" placeholder="Texto da pergunta">
-            <input id="question-${i+1}-bgColor" type="text" placeholder="Cor de fundo da pergunta" >
+            <ion-icon name="create-outline"></ion-icon>
         </div>
-        <div>
-            <h1>Resposta correta</h1>
-            <input id="question-${i+1}-correctAnswer-text" type="text" placeholder="Resposta correta" >
-            <input id="question-${i+1}-correctAnswer-img" type="text" placeholder="URL da imagem" >
-        </div>
-        <div>
-            <h1>Resposta incorretas</h1>
+
+        <div class="input-box questions placeholder pergunta${i+1} displayNone">
             <div>
-                <input id="question-${i+1}-wrongAnswer01-text" type="text" placeholder="Resposta incorreta 1" >
-                <input id="question-${i+1}-wrongAnswer01-img" type="text" placeholder="URL da imagem 1" >
+                <h1>Pergunta ${i+1}</h1>
+                <input id="question-${i+1}-text" type="text" placeholder="Texto da pergunta">
+                <input id="question-${i+1}-bgColor" type="text" placeholder="Cor de fundo da pergunta" >
             </div>
             <div>
-                <input id="question-${i+1}-wrongAnswer02-text" type="text" placeholder="Resposta incorreta 2" >
-                <input id="question-${i+1}-wrongAnswer02-img" type="text" placeholder="URL da imagem 2" >
+                <h1>Resposta correta</h1>
+                <input id="question-${i+1}-correctAnswer-text" type="text" placeholder="Resposta correta" >
+                <input id="question-${i+1}-correctAnswer-img" type="text" placeholder="URL da imagem" >
             </div>
             <div>
-                <input id="question-${i+1}-wrongAnswer03-text" type="text" placeholder="Resposta incorreta 3" >
-                <input id="question-${i+1}-wrongAnswer03-img" type="text" placeholder="URL da imagem 3" >
+                <h1>Resposta incorretas</h1>
+                <div>
+                    <input id="question-${i+1}-wrongAnswer01-text" type="text" placeholder="Resposta incorreta 1" >
+                    <input id="question-${i+1}-wrongAnswer01-img" type="text" placeholder="URL da imagem 1" >
+                </div>
+                <div>
+                    <input id="question-${i+1}-wrongAnswer02-text" type="text" placeholder="Resposta incorreta 2" >
+                    <input id="question-${i+1}-wrongAnswer02-img" type="text" placeholder="URL da imagem 2" >
+                </div>
+                <div>
+                    <input id="question-${i+1}-wrongAnswer03-text" type="text" placeholder="Resposta incorreta 3" >
+                    <input id="question-${i+1}-wrongAnswer03-img" type="text" placeholder="URL da imagem 3" >
+                </div>
             </div>
-        </div>
         </div>`
     }
+
+    let question = document.querySelector(".pergunta1");
+    question.classList.add("displayActive");
+    question.classList.remove("displayNone");
+
+    let boxQuestion = document.querySelector(`.boxPergunta1`);
+    boxQuestion.classList.add("displayBoxNone");
 
     screen_3_2.innerHTML += `<button onclick="buttonDefineQuizzLevels()">Prosseguir pra criar níveis</button>`
 }
@@ -244,8 +257,20 @@ function customQuizzCheckUserInputPart03(levelNum) {
 }
 
 // abrir/fechar div de pergunta, como no layout do figma
-function toggleQuestionFormVisibility() {
+function toggleQuestionFormVisibility(id) {
+    let questionCurrent = document.querySelector(".displayActive");
+    questionCurrent.classList.remove("displayActive");
+    questionCurrent.classList.add("displayNone");
 
+    let boxQuestionCurrent = document.querySelector(".displayBoxNone");
+    boxQuestionCurrent.classList.remove("displayBoxNone");
+
+    let newQuestion = document.querySelector(`.pergunta${id}`);
+    newQuestion.classList.add("displayActive");
+    newQuestion.classList.remove("displayNone");
+
+    let newBoxQuestion = document.querySelector(`.boxPergunta${id}`);
+    newBoxQuestion.classList.add("displayBoxNone");
 }
 
 function buttonFinalizeQuizz() {
