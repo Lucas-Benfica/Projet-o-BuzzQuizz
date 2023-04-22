@@ -111,15 +111,22 @@ function createQuizzLevels (levelCount) {
 function buttonDefineQuizzLevels() {
     // if user input valid goto next part of quizz creation, else alert user
     let userInputIsValid = true;
+    // variável para testar se existe um nível com valor de 0%
+    let levelEqualsZero = false;
 
     for(let i = 0; i < cstmQuestionCt; i++) {
+        levelPercentage = document.getElementById(`level-${i+1}-percentage`).value;
+
         if(!customQuizzCheckUserInputQuestion(i+1)) {
             userInputIsValid = false;
             break;
         }
+        if(levelPercentage === 0) {
+            levelEqualsZero = true;
+        } else {alert("Deve existir um nível com valor de 0%"); break;}
     }
 
-    if(userInputIsValid) {
+    if(userInputIsValid && levelEqualsZero) {
         createQuizzLevels(cstmLevelCt);
     }
 }
