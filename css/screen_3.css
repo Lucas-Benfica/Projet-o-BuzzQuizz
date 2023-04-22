@@ -165,3 +165,11 @@
 .levels input {
     margin-top: 0;
 }
+
+.displayNone {
+    display: none;
+}
+
+.displayBoxNone {
+    display: none;
+}
