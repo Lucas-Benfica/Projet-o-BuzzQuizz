@@ -14,17 +14,20 @@ let wrongAnswer02Text = '';
 let wrongAnswer02Img = '';
 let wrongAnswer03Text = '';
 let wrongAnswer03Img = '';
+let arrayQuestios = [];
 
 let levelTitle = '';
 let levelPercentage = '';
 let levelImg = '';
 let levelDescription = '';
+let arrayLevels = [];
 
 const screen_1 = document.querySelector('.tela-1');
 const screen_3 = document.querySelector('.tela-3');
 const screen_3_1 = document.querySelector('.tela-3-1');
 const screen_3_2 = document.querySelector('.tela-3-2');
 const screen_3_3 = document.querySelector('.tela-3-3');
+const screen_3_4 = document.querySelector('.tela-3-4');
 
 function buttonInitializeUserQuizz() {
     // get values from user input
@@ -93,20 +96,18 @@ function createQuizzLevels (levelCount) {
     createQuizShowThirdScreen();
 
     for (let i = 0; i < levelCount; i++) {
-        screen_3_3.innerHTML += `<div class="input-box questions levels">
-        <h1>Nível ${i+1}</h1>
-        <input id="level-${i+1}-title" type="text" placeholder="Título do nível">
-        <input id="level-${i+1}-percentage" type="text" placeholder="% de acerto mínima">
-        <input id="level-${i+1}-img" type="text" placeholder="URL da imagem do nível">
-        <input id="level-${i+1}-description" type="text" placeholder="Descrição do nível">
-    </div>`
-
-    
+        screen_3_3.innerHTML += `
+        <div class="input-box questions levels level${i+1}">
+            <h1>Nível ${i+1}</h1>
+            <input id="level-${i+1}-title" type="text" placeholder="Título do nível">
+            <input id="level-${i+1}-percentage" type="text" placeholder="% de acerto mínima">
+            <input id="level-${i+1}-img" type="text" placeholder="URL da imagem do nível">
+            <input id="level-${i+1}-description" type="text" placeholder="Descrição do nível">
+        </div>`
     }
 
     screen_3_3.innerHTML += `<button onclick="buttonFinalizeQuizz()">Finalizar Quizz</button>`
 }
-
 
 function buttonDefineQuizzLevels() {
     // if user input valid goto next part of quizz creation, else alert user
@@ -120,7 +121,52 @@ function buttonDefineQuizzLevels() {
     }
 
     if(userInputIsValid) {
+        questionArrayGenerator();
         createQuizzLevels(cstmLevelCt);
+    }
+}
+
+function questionArrayGenerator() {
+    for (let i = 0; i < cstmQuestionCt; i++) {
+        let elQuestion = document.querySelector(`.pergunta${i+1}`);
+        let answers = [];
+
+        answers.push({
+            text: elQuestion.children[1].children[1].value,
+            image: elQuestion.children[1].children[2].value,
+            isCorrectAnswer: true,
+        })
+
+        for (let i = 1; i <= 3; i++) {
+            if ((elQuestion.children[2].children[i].children[0].value) != '') {
+              answers.push({
+                text: elQuestion.children[2].children[i].children[0].value,
+                image: elQuestion.children[2].children[i].children[1].value,
+                isCorrectAnswer: false,
+              });
+            }
+        }
+
+        const question = {
+            title: elQuestion.children[0].children[1].value,
+            color: elQuestion.children[0].children[2].value,
+            answers,
+        }
+
+        arrayQuestios.push(question);
+    }
+}
+
+function questionLevelGenerator() {
+    for (let i = 0; i < cstmLevelCt; i++) {
+        let elLevels = document.querySelector(`.level${i+1}`);
+
+        arrayLevels.push({
+            title: elLevels.children[1].value,
+            minValue: parseInt(elLevels.children[2].value),
+            image: elLevels.children[3].value,
+            text: elLevels.children[4].value,
+        });
     }
 }
 
@@ -288,35 +334,33 @@ function buttonFinalizeQuizz() {
     }
 
     if(userInputIsValid) {
-        //axiosUploadQuizz();
+        questionLevelGenerator();
+
+        const newQuizz = {
+            title: cstmTitle,
+            image: cstmImage,
+            questions: arrayQuestios,
+            levels: arrayLevels,
+        }
+
+        axiosUploadQuizz(newQuizz);
     }
 }
 
-function axiosUploadQuizz() {
-    //Temos que criar o vetor pra guardar as questions e os levels
+function axiosUploadQuizz(quizz) {
+    let promise = axios.post('https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes', quizz);
+    promise.then((response) => {
 
-    let fullQuizz = [{
-        title: cstmTitle,
-        image: cstmImage,
-        questions: userQuestions,
-        levels: userLevels 
-    }];
+        const userQuizzID = JSON.stringify(response.data.id); // Tranforma o nosso array de objt em uma string    
+        console.log("USER ID -> " + userQuizzID)
+        localStorage.setItem("userQuizzID", userQuizzID); // Envia essa string para o storege, depois se quisermos puxar e usar ela temos que trensformar de volta.
 
-    let promise = axios.post('https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes', fullQuizz);
-    promise.then((userQuizz) => {
-        //Aqui temos que salvar o quizz no storege
-        const quizzSerializado = JSON.stringify(userQuizz); //Tranforma o nosso array de objt em uma string
-
-        localStorage.setItem("userQuizz", quizzSerializado); //Envia essa string para o storege, depois se quisermos puxar e usar ela temos que trensformar de volta.
-
+        createQuizShowFourthScreen(response.data);
     });
-    promise.catch((userQuizz) => console.log("EXEMPLO_TESTE"));
-
-
+    promise.catch((erro) => console.log("Erro ao criar quizz. Mensagem: " + erro));
 }
 
 // peguei essa função pra checar se uma string é URL válida do Mr Gepeto... se alguém tiver uma solução mais "normal"... é nois! RegEx.... complicado...
-
 function isUrl(str) {
     const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
       '((([a-zA-Z\\d]([a-zA-Z\\d-]{0,61}[a-zA-Z\\d])?)\\.)+[a-zA-Z]{2,}|' + // domain name
@@ -325,10 +369,9 @@ function isUrl(str) {
       '(\\?[;&a-zA-Z\\d%_.~+=-]*)?' + // query string
       '(\\#[-a-zA-Z\\d_]*)?$', 'i'); // fragment locator
     return !!pattern.test(str);
-  }
+}
 
 // também peguei essa validação de valor hexadecimal do Mr Gepeto...
-
 function isValidHexColor(input) {
   // Check if input starts with #
   if (input.charAt(0) !== "#") {
@@ -358,9 +401,7 @@ function isValidHexColor(input) {
   
 // apenas faz a logica de troca de tela para a tela de criação de quizz;
 function buttonCreateQuizz() {
-    screen_1.style.display = 'none';
-    screen_3.style.display = 'flex';
-    screen_3_1.style.display = 'flex';
+    resetCreateQuizScreen();
 }
 
 function createQuizShowSecondScreen() {
@@ -368,6 +409,8 @@ function createQuizShowSecondScreen() {
     screen_3.style.display = 'flex';
     screen_3_1.style.display = 'none';
     screen_3_2.style.display = 'flex';
+    screen_3_3.style.display = 'none';
+    screen_3_4.style.display = 'none';
 }
 
 function createQuizShowThirdScreen() {
@@ -376,4 +419,60 @@ function createQuizShowThirdScreen() {
     screen_3_1.style.display = 'none';
     screen_3_2.style.display = 'none';
     screen_3_3.style.display = 'flex';
+    screen_3_4.style.display = 'none';
+}
+
+function resetCreateQuizScreen() {
+    screen_1.style.display = 'none';
+    screen_3.style.display = 'flex';
+    screen_3_1.style.display = 'flex';
+    screen_3_2.style.display = 'none';
+    screen_3_3.style.display = 'none';
+    screen_3_4.style.display = 'none';
+
+    cstmTitle = '';
+    cstmImage = '';
+    cstmQuestionCt = -1;
+    cstmLevelCt = -1;
+
+    questionText = '';
+    questionColor = '';
+    correctAnswerText = '';
+    correctAnswerImg = '';
+    wrongAnswer01Text = '';
+    wrongAnswer01Img = '';
+    wrongAnswer02Text = '';
+    wrongAnswer02Img = '';
+    wrongAnswer03Text = '';
+    wrongAnswer03Img = '';
+    arrayQuestios = [];
+
+    levelTitle = '';
+    levelPercentage = '';
+    levelImg = '';
+    levelDescription = '';
+    arrayLevels = [];
+}
+
+function createQuizShowFourthScreen(quizz) {
+    screen_1.style.display = 'none';
+    screen_3.style.display = 'flex';
+    screen_3_1.style.display = 'none';
+    screen_3_2.style.display = 'none';
+    screen_3_3.style.display = 'none';
+    screen_3_4.style.display = 'flex';
+
+    const el = document.querySelector(".tela-3-4");
+    console.log("QUIZZ VINDO -> " + quizz)
+
+    el.innerHTML = `
+    <h1>Seu quizz está pronto!</h1>
+    <div class="quizz-card"> 
+        <div></div> 
+        <img src="${quizz.image}" alt="${quizz.title}">
+        <p>${quizz.title}</p>
+    </div>
+    <button id="${quizz.id}" onclick="openQuizz(this.id)">Acessar Quizz</button>
+    <button class="button-home" onclick="back()">Voltar pra home</button>
+    `
 }

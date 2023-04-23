@@ -205,10 +205,12 @@ function back(){
     let screen_1 = document.querySelector('.tela-1');
     screen_1.style.display = 'flex';
 
+    let screen_3 = document.querySelector('.tela-3');
+    screen_3.style.display = 'none';
+
     window.scrollTo(0,0);
 
     fetchAllQuizzes();
-
 }
 
 fetchAllQuizzes();
