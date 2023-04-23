@@ -3,9 +3,15 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin-top: 69px;
+    margin-top: 80px;
     display: none;
+    background-color: #E5E5E5;
 }
+
+* {
+    box-sizing: border-box;
+}
+
 
 .displayNone{
     display: none;
@@ -15,7 +21,7 @@
     width: 100%;
     height: 227px;
     position: relative;
-    margin-bottom: 69px;
+    margin-bottom: 42px;
 }
 
 .quizz-name div{
@@ -41,27 +47,32 @@
 }
 
 .quizz-questions > div{
-    width: 690px;
-    margin-bottom: 100px;
+    width: 759px;
+    margin-bottom: 42px;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    padding: 28px 35px;
 }
 
 .ask{
-    width: 100%;
+    width: 690px;
     height: 138px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #FFFFFF;
     font-size: 23px;
-    
+    margin: 0 auto;
 }
 
 .options{
-    width: 100%;
+    width: 690px;
     height: auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin: 0 auto;
 }
 
 .option{
@@ -79,10 +90,10 @@
 }
 
 .option img{
-    
     width: 100%;
     height: 175px;
     margin-bottom: 10px;
+    object-fit: cover;
 }
 
 .option,.restart,.back:hover{
@@ -102,14 +113,18 @@
 }
 
 .result{
-    width: 727px;
-    height: 500px;
+    width: 759px;
+    height: 430px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    background-color: #FFFFFF;
+    padding: 20px 16px;
+    
 }
 
 .result .nota{
-    width: 100%;
+    width: 727px;
     height: 138px;
     display: flex;
     justify-content: center;
@@ -119,6 +134,7 @@
 }
 
 .final{
+    width: 727px;
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
@@ -127,6 +143,7 @@
 .final img{
     width: 364px;
     height: 273px;
+    object-fit: cover;
 }
 
 .final div{
@@ -142,6 +159,7 @@
     color: #FFF5F4;
     width: 260px;
     height: 52px;
+    margin-top: 57px;
     margin-bottom: 15px;
     font-size: 21px;
     display: flex;
@@ -162,14 +180,20 @@
     align-items: center;
     border-radius: 15px;
 }
-/*
+
 @media screen and (max-width: 1100px){
     .tela-2{
-        margin: 0 auto;
+        margin: 80px auto 0;
     }
     .quizz-name{
         width: 375px;
         height: 142px;
     }
+    .quizz-name div{
+        font-size: 19px;
+    }
+    .quizz-questions > div{
+        width: 690px;
+        margin-bottom: 100px;
+    }
 }
-*/
