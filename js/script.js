@@ -28,36 +28,35 @@ function showAllQuizzes(quizzes) {
         userQuizz.innerHTML = '';
     }
 
-    let quizzUser = quizzes.find(quizz => {
-        arrayUserQuizzID.forEach( id => {
-            if(id == arrayUserQuizzID.id){
-                return true;
-            }
-            else{
-                return false;
-            }
-        });
-    });
-    quizzUser.forEach(quizz => {
-        userQuizz.innerHTML += `
-                <div data-test="others-quiz" class="quizz-card" id="${quizz.id}" onclick="openQuizz(this.id)"> 
-                    <div></div> 
-                    <img src="${quizz.image}" alt="${quizz.title}">
-                    <p>${quizz.title}</p>
-                </div>
-        `;
-    })
+    console.log(arrayUserQuizzID);
 
     quizzes.forEach(quizz => {
         
-        el.innerHTML += `
+        let existeUserQuizz = 0;
+
+        if(arrayUserQuizzID){
+            for( let i=0; i < arrayUserQuizzID.length; i++){
+                if(quizz.id == arrayUserQuizzID[i].id){
+                    userQuizz.innerHTML += `
+                        <div data-test="others-quiz" class="quizz-card" id="${quizz.id}" onclick="openQuizz(this.id)"> 
+                            <div></div> 
+                            <img src="${quizz.image}" alt="${quizz.title}">
+                            <p>${quizz.title}</p>
+                        </div>
+                    `;
+                    existeUserQuizz = 1;
+                }
+            }
+        }
+        if(existeUserQuizz == 0){
+            el.innerHTML += `
                 <div data-test="others-quiz" class="quizz-card" id="${quizz.id}" onclick="openQuizz(this.id)"> 
                     <div></div> 
                     <img src="${quizz.image}" alt="${quizz.title}">
                     <p>${quizz.title}</p>
                 </div>
-            `
-        
+            `;
+        }     
     });
 }
 
