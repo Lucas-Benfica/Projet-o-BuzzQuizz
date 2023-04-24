@@ -80,12 +80,12 @@
         <div class="tela-3-1">
             <h1>Comece pelo começo</h1>
             <div class="input-box">
-                <input id="cstm-title" type="text" placeholder="Título do seu quizz">
-                <input id="cstm-quizzImage" type="text" placeholder="URL da imagem do seu quizz">
-                <input id="cstm-questionCount" type="text" placeholder="Quantidade de perguntas do quizz">
-                <input id="cstm-levelCount" type="text" placeholder="Quantidade de níveis do quizz">
+                <input data-test="title-input" id="cstm-title" type="text" placeholder="Título do seu quizz">
+                <input data-test="img-input" id="cstm-quizzImage" type="text" placeholder="URL da imagem do seu quizz">
+                <input data-test="questions-amount-input" id="cstm-questionCount" type="text" placeholder="Quantidade de perguntas do quizz">
+                <input data-test="levels-amount-input" id="cstm-levelCount" type="text" placeholder="Quantidade de níveis do quizz">
             </div>
-            <button onclick="buttonInitializeUserQuizz()">Prosseguir pra criar perguntas</button>
+            <button data-test="go-create-questions" onclick="buttonInitializeUserQuizz()">Prosseguir pra criar perguntas</button>
         </div>
 
 <!-- Tela criar quizz de usuário [pt 2/4] - criar perguntas -->

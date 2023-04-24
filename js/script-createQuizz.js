@@ -48,7 +48,7 @@ function createQuizQuestions(questionCount) {
     
     for (let i = 0; i < questionCount; i++) {
         screen_3_2.innerHTML += `
-        <div id="${i+1}" class="next-question boxPergunta${i+1}" onclick="toggleQuestionFormVisibility(this.id)">
+        <div data-test="question-ctn" id="${i+1}" class="next-question boxPergunta${i+1}" onclick="toggleQuestionFormVisibility(this.id)">
             <h1>Pergunta ${i+1}</h1>
             <ion-icon name="create-outline"></ion-icon>
         </div>
@@ -56,27 +56,27 @@ function createQuizQuestions(questionCount) {
         <div class="input-box questions placeholder pergunta${i+1} displayNone">
             <div>
                 <h1>Pergunta ${i+1}</h1>
-                <input id="question-${i+1}-text" type="text" placeholder="Texto da pergunta">
-                <input id="question-${i+1}-bgColor" type="text" placeholder="Cor de fundo da pergunta" >
+                <input data-test="question-input id="question-${i+1}-text" type="text" placeholder="Texto da pergunta">
+                <input data-test="question-color-input" id="question-${i+1}-bgColor" type="text" placeholder="Cor de fundo da pergunta" >
             </div>
             <div>
                 <h1>Resposta correta</h1>
-                <input id="question-${i+1}-correctAnswer-text" type="text" placeholder="Resposta correta" >
-                <input id="question-${i+1}-correctAnswer-img" type="text" placeholder="URL da imagem" >
+                <input data-test="correct-answer-input" id="question-${i+1}-correctAnswer-text" type="text" placeholder="Resposta correta" >
+                <input data-test="correct-img-input" id="question-${i+1}-correctAnswer-img" type="text" placeholder="URL da imagem" >
             </div>
             <div>
                 <h1>Resposta incorretas</h1>
                 <div>
-                    <input id="question-${i+1}-wrongAnswer01-text" type="text" placeholder="Resposta incorreta 1" >
-                    <input id="question-${i+1}-wrongAnswer01-img" type="text" placeholder="URL da imagem 1" >
+                    <input data-test="wrong-answer-input" id="question-${i+1}-wrongAnswer01-text" type="text" placeholder="Resposta incorreta 1" >
+                    <input data-test="wrong-img-input" id="question-${i+1}-wrongAnswer01-img" type="text" placeholder="URL da imagem 1" >
                 </div>
                 <div>
-                    <input id="question-${i+1}-wrongAnswer02-text" type="text" placeholder="Resposta incorreta 2" >
-                    <input id="question-${i+1}-wrongAnswer02-img" type="text" placeholder="URL da imagem 2" >
+                    <input data-test="wrong-answer-input" id="question-${i+1}-wrongAnswer02-text" type="text" placeholder="Resposta incorreta 2" >
+                    <input data-test="wrong-img-input" id="question-${i+1}-wrongAnswer02-img" type="text" placeholder="URL da imagem 2" >
                 </div>
                 <div>
-                    <input id="question-${i+1}-wrongAnswer03-text" type="text" placeholder="Resposta incorreta 3" >
-                    <input id="question-${i+1}-wrongAnswer03-img" type="text" placeholder="URL da imagem 3" >
+                    <input data-test="wrong-answer-input" id="question-${i+1}-wrongAnswer03-text" type="text" placeholder="Resposta incorreta 3" >
+                    <input data-test="wrong-img-input" id="question-${i+1}-wrongAnswer03-img" type="text" placeholder="URL da imagem 3" >
                 </div>
             </div>
         </div>`
@@ -89,7 +89,7 @@ function createQuizQuestions(questionCount) {
     let boxQuestion = document.querySelector(`.boxPergunta1`);
     boxQuestion.classList.add("displayBoxNone");
 
-    screen_3_2.innerHTML += `<button onclick="buttonDefineQuizzLevels()">Prosseguir pra criar níveis</button>`
+    screen_3_2.innerHTML += `<button data-test="go-create-levels" onclick="buttonDefineQuizzLevels()">Prosseguir pra criar níveis</button>`
 }
 
 function createQuizzLevels (levelCount) {
@@ -97,16 +97,16 @@ function createQuizzLevels (levelCount) {
 
     for (let i = 0; i < levelCount; i++) {
         screen_3_3.innerHTML += `
-        <div class="input-box questions levels level${i+1}">
+        <div data-test="level-ctn" class="input-box questions levels level${i+1}">
             <h1>Nível ${i+1}</h1>
-            <input id="level-${i+1}-title" type="text" placeholder="Título do nível">
-            <input id="level-${i+1}-percentage" type="text" placeholder="% de acerto mínima">
-            <input id="level-${i+1}-img" type="text" placeholder="URL da imagem do nível">
-            <input id="level-${i+1}-description" type="text" placeholder="Descrição do nível">
+            <input data-test="level-input" id="level-${i+1}-title" type="text" placeholder="Título do nível">
+            <input data-test="level-percent-input" id="level-${i+1}-percentage" type="text" placeholder="% de acerto mínima">
+            <input data-test="level-img-input" id="level-${i+1}-img" type="text" placeholder="URL da imagem do nível">
+            <input data-test="level-description-input" id="level-${i+1}-description" type="text" placeholder="Descrição do nível">
         </div>`
     }
 
-    screen_3_3.innerHTML += `<button onclick="buttonFinalizeQuizz()">Finalizar Quizz</button>`
+    screen_3_3.innerHTML += `<button data-test="finish" onclick="buttonFinalizeQuizz()">Finalizar Quizz</button>`
 }
 
 function buttonDefineQuizzLevels() {
