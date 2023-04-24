@@ -295,17 +295,20 @@ function customQuizzCheckUserInputQuestion(questionNum) {
 
 // validar input de terceira tela de criação de quizz do usuário (níveis)
 function customQuizzCheckUserInputPart03(levelNum) {
-    levelTitle = document.getElementById(`level-${levelNum}-title`).value;
-    levelPercentage = document.getElementById(`level-${levelNum}-percentage`).value;
-    levelImg = document.getElementById(`level-${levelNum}-img`).value;
-    levelDescription = document.getElementById(`level-${levelNum}-description`).value;
+    let elLevel = document.querySelector(`.level${levelNum}`);
+    console.log("level: " + elLevel)
+    
+    levelTitle = elLevel.children[1].value;
+    levelPercentage = elLevel.children[2].value;
+    levelImg = elLevel.children[3].value;
+    levelDescription = elLevel.children[4].value;
 
     if (levelTitle.length < 10 || levelTitle === null) {
         alert(`Título do nível ${levelNum} deve ter mínimo de 10 caractéres`);
         return false
     }
 
-    else if (!(0 < levelPercentage) || !(levelPercentage < 100) ) {
+    else if (!(0 <= levelPercentage) || !(levelPercentage <= 100) ) {
         alert(`Porcentagem do nível ${levelNum} deve ter valor entre 0 e 100`);
         return false
     }
@@ -359,7 +362,7 @@ function toggleLevelsFormVisibility(id) {
 function buttonFinalizeQuizz() {
     let userInputIsValid = true;
 
-    for(let i = 0; i < cstmQuestionCt; i++) {
+    for(let i = 0; i < cstmLevelCt; i++) {
         if(!customQuizzCheckUserInputPart03(i+1)) {
             userInputIsValid = false;
             break;
@@ -473,7 +476,7 @@ function createQuizShowFourthScreen(quizz) {
     screen_3_4.style.display = 'flex';
 
     const el = document.querySelector(".tela-3-4");
-    console.log("QUIZZ VINDO -> " + quizz)
+    console.log(quizz)
 
     el.innerHTML = `
     <h1>Seu quizz está pronto!</h1>
@@ -482,7 +485,7 @@ function createQuizShowFourthScreen(quizz) {
         <img src="${quizz.image}" alt="${quizz.title}">
         <p>${quizz.title}</p>
     </div>
-    <button id="${quizz.id}" onclick="openQuizz(this.id)">Acessar Quizz</button>
+    <button id="${quizz.id}" onclick="openQuizz(${quizz.id})">Acessar Quizz</button>
     <button class="button-home" onclick="back()">Voltar pra home</button>
     `
 }

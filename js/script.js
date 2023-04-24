@@ -27,26 +27,29 @@ function showAllQuizzes(quizzes) {
     const userQuizz = document.querySelector('.quizz-create');
 
     if(arrayUserQuizzID !== null){
-        
+        userQuizz.innerHTML = '';
     }
 
-    quizzes.forEach(quizz => {
+    console.log(arrayUserQuizzID);
 
+    quizzes.forEach(quizz => {
+        
         let existeUserQuizz = 0;
 
-        for( let i=0; i < arrayUserQuizzID.length; i++){
-            if(quizz.id == arrayUserQuizzID.id){
-                userQuizz.innerHTML += `
-                    <div data-test="others-quiz" class="quizz-card" id="${quizz.id}" onclick="openQuizz(this.id)"> 
-                        <div></div> 
-                        <img src="${quizz.image}" alt="${quizz.title}">
-                        <p>${quizz.title}</p>
-                    </div>
-                `;
-                existeUserQuizz = 1;
+        if(arrayUserQuizzID){
+            for( let i=0; i < arrayUserQuizzID.length; i++){
+                if(quizz.id == arrayUserQuizzID[i].id){
+                    userQuizz.innerHTML += `
+                        <div data-test="others-quiz" class="quizz-card" id="${quizz.id}" onclick="openQuizz(this.id)"> 
+                            <div></div> 
+                            <img src="${quizz.image}" alt="${quizz.title}">
+                            <p>${quizz.title}</p>
+                        </div>
+                    `;
+                    existeUserQuizz = 1;
+                }
             }
         }
-
         if(existeUserQuizz == 0){
             el.innerHTML += `
                 <div data-test="others-quiz" class="quizz-card" id="${quizz.id}" onclick="openQuizz(this.id)"> 
@@ -63,6 +66,9 @@ function showAllQuizzes(quizzes) {
 function openQuizz(id) {
     let screen_1 = document.querySelector('.tela-1');
     screen_1.style.display = 'none';
+
+    let screen_3 = document.querySelector('.tela-3');
+    screen_3.style.display = 'none';
 
     let screen_2 = document.querySelector('.tela-2');
     screen_2.style.display = 'flex';
