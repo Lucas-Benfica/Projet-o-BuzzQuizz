@@ -17,6 +17,8 @@ function fetchAllQuizzes() {
 }
 
 // recebe array de todos os quizzes e faz a exibição
+
+
 function showAllQuizzes(quizzes) {
     const el = document.querySelector('.quizz-dashboard');
     el.innerHTML = '';
@@ -56,7 +58,7 @@ function showAllQuizzes(quizzes) {
                     <p>${quizz.title}</p>
                 </div>
             `;
-        }     
+        }
     });
 }
 
