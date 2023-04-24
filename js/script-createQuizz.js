@@ -99,10 +99,10 @@ function createQuizzLevels (levelCount) {
         screen_3_3.innerHTML += `
         <div data-test="" id="${i+1}" class="next-question boxLevel${i+1}" >
             <h1>Nível ${i+1}</h1>
-            <button data-test="toggle" onclick="toggleQuestionFormVisibility(this.parentElement.id)"><ion-icon name="create-outline" ></ion-icon></button>
+            <button data-test="toggle" onclick="toggleLevelsFormVisibility(this.parentElement.id)"><ion-icon name="create-outline" ></ion-icon></button>
         </div>
 
-        <div data-test="level-ctn" class="input-box questions levels level${i+1}">
+        <div data-test="level-ctn" class="input-box questions levels level${i+1} displayNone">
             <h1>Nível ${i+1}</h1>
             <input data-test="level-input" id="level-${i+1}-title" type="text" placeholder="Título do nível">
             <input data-test="level-percent-input" id="level-${i+1}-percentage" type="text" placeholder="% de acerto mínima">
@@ -111,23 +111,26 @@ function createQuizzLevels (levelCount) {
         </div>`
     }
 
+    let level = document.querySelector(".level1");
+    level.classList.add("displayLevelActive");
+    level.classList.remove("displayNone");
+
+    let boxLevel = document.querySelector(`.boxLevel1`);
+    boxLevel.classList.add("displayBoxLevelNone");
+
     screen_3_3.innerHTML += `<button data-test="finish" onclick="buttonFinalizeQuizz()">Finalizar Quizz</button>`
 }
 
 function buttonDefineQuizzLevels() {
     // if user input valid goto next part of quizz creation, else alert user
     let userInputIsValid = true;
-    // variável para testar se existe um nível com valor de 0%
-    let levelEqualsZero = false;
+    
     for(let i = 0; i < cstmQuestionCt; i++) {
         // levelPercentage = document.getElementById(`level-${i+1}-percentage`).value;
         if(!customQuizzCheckUserInputQuestion(i+1)) {
             userInputIsValid = false;
             break;
         }
-        // if(levelPercentage === 0) {
-        //     levelEqualsZero = true;
-        // } else {alert("Deve existir um nível com valor de 0%"); break;}
     }
 
     if(userInputIsValid) {
@@ -204,7 +207,6 @@ function customQuizzCheckUserInputQuizzInit(title, img, questionCt, levelCt) {
 
     return true
 }
-
 
 // validar input de segunda tela de criação de quizz do usuário (perguntas)
 function customQuizzCheckUserInputQuestion(questionNum) {
@@ -287,6 +289,8 @@ function customQuizzCheckUserInputQuestion(questionNum) {
     else {return true}
 }
 
+let levelEqualsZero = false;
+
 // validar input de terceira tela de criação de quizz do usuário (níveis)
 function customQuizzCheckUserInputPart03(levelNum) {
     let elLevel = document.querySelector(`.level${levelNum}`);
@@ -296,6 +300,11 @@ function customQuizzCheckUserInputPart03(levelNum) {
     levelPercentage = elLevel.children[2].value;
     levelImg = elLevel.children[3].value;
     levelDescription = elLevel.children[4].value;
+
+    // variável para testar se existe um nível com valor de 0%
+    if(levelPercentage == 0) {
+        levelEqualsZero = true;
+    } 
 
     if (levelTitle.length < 10 || levelTitle === null) {
         alert(`Título do nível ${levelNum} deve ter mínimo de 10 caractéres`);
@@ -337,6 +346,22 @@ function toggleQuestionFormVisibility(id) {
     newBoxQuestion.classList.add("displayBoxNone");
 }
 
+function toggleLevelsFormVisibility(id) {
+    let levelCurrent = document.querySelector(".displayLevelActive");
+    levelCurrent.classList.remove("displayLevelActive");
+    levelCurrent.classList.add("displayNone");
+
+    let boxLevelCurrent = document.querySelector(".displayBoxLevelNone");
+    boxLevelCurrent.classList.remove("displayBoxLevelNone");
+
+    let newLevel = document.querySelector(`.level${id}`);
+    newLevel.classList.add("displayLevelActive");
+    newLevel.classList.remove("displayNone");
+
+    let newBoxLevel = document.querySelector(`.boxLevel${id}`);
+    newBoxLevel.classList.add("displayBoxLevelNone");
+}
+
 function buttonFinalizeQuizz() {
     let userInputIsValid = true;
 
@@ -347,7 +372,7 @@ function buttonFinalizeQuizz() {
         }
     }
 
-    if(userInputIsValid) {
+    if(userInputIsValid && levelEqualsZero) {
         questionLevelGenerator();
 
         const newQuizz = {
@@ -358,7 +383,7 @@ function buttonFinalizeQuizz() {
         }
 
         axiosUploadQuizz(newQuizz);
-    }
+    } else if (!levelEqualsZero) {alert("Deve haver um nível com porcentagem igual a zero")}
 }
 
 function axiosUploadQuizz(quizz) {
