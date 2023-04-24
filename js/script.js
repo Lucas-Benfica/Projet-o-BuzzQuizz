@@ -142,7 +142,7 @@ function checkAnswer(option, id){
     let next = document.getElementById(`${id + 1}`);
     
     setTimeout( () => {
-        next.scrollIntoView({ behavior: "smooth" });
+        next.scrollIntoView();
         window.scrollBy(0, -100);
     }, 2000);
 
