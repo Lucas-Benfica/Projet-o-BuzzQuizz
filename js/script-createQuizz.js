@@ -56,7 +56,7 @@ function createQuizQuestions(questionCount) {
         <div class="input-box questions placeholder pergunta${i+1} displayNone">
             <div>
                 <h1>Pergunta ${i+1}</h1>
-                <input data-test="question-input id="question-${i+1}-text" type="text" placeholder="Texto da pergunta">
+                <input data-test="question-input" id="question-${i+1}-text" type="text" placeholder="Texto da pergunta">
                 <input data-test="question-color-input" id="question-${i+1}-bgColor" type="text" placeholder="Cor de fundo da pergunta" >
             </div>
             <div>
