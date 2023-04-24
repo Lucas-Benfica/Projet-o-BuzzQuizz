@@ -26,9 +26,11 @@ function showAllQuizzes(quizzes) {
     const arrayUserQuizzID = JSON.parse(localStorage.getItem("userQuizzID"));
     const userQuizz = document.querySelector('.quizz-create');
     const caixa = document.querySelector('.userQuizz');
+    const dashboardUser = document.querySelector('.dashboardUser');
 
     if(arrayUserQuizzID !== null){
         userQuizz.style.display = 'none';
+        dashboardUser.style.display = 'flex';
         caixa.style.display = 'flex';
     }
 

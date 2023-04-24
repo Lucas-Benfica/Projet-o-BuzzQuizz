@@ -140,6 +140,10 @@
    width: auto;
 }
 
+.dashboardUser {
+    display: none;
+}
+
 @media screen and (max-width: 1100px){
 
     body {
