@@ -46,11 +46,11 @@ function buttonInitializeUserQuizz() {
 function createQuizQuestions(questionCount) {
     createQuizShowSecondScreen();
     
-    for (let i = 0; i <= questionCount; i++) {
+    for (let i = 0; i < questionCount; i++) {
         screen_3_2.innerHTML += `
         <div data-test="question-ctn" id="${i+1}" class="next-question boxPergunta${i+1}" >
             <h1>Pergunta ${i+1}</h1>
-            <ion-icon data-test="toggle" name="create-outline" onclick="toggleQuestionFormVisibility(this.parentElement.id)" ></ion-icon>
+            <button data-test="toggle" onclick="toggleQuestionFormVisibility(this.parentElement.id)"><ion-icon name="create-outline" ></ion-icon></button>
         </div>
 
         <div class="input-box questions placeholder pergunta${i+1} displayNone">
@@ -97,6 +97,11 @@ function createQuizzLevels (levelCount) {
 
     for (let i = 0; i < levelCount; i++) {
         screen_3_3.innerHTML += `
+        <div data-test="" id="${i+1}" class="next-question boxLevel${i+1}" >
+            <h1>Nível ${i+1}</h1>
+            <button data-test="toggle" onclick="toggleQuestionFormVisibility(this.parentElement.id)"><ion-icon name="create-outline" ></ion-icon></button>
+        </div>
+
         <div data-test="level-ctn" class="input-box questions levels level${i+1}">
             <h1>Nível ${i+1}</h1>
             <input data-test="level-input" id="level-${i+1}-title" type="text" placeholder="Título do nível">
@@ -358,9 +363,18 @@ function axiosUploadQuizz(quizz) {
     promise.then((response) => {
 
         const userQuizzID = JSON.stringify(response.data.id); // Tranforma o nosso array de objt em uma string    
-        console.log("USER ID -> " + userQuizzID)
-        localStorage.setItem("userQuizzID", userQuizzID); // Envia essa string para o storege, depois se quisermos puxar e usar ela temos que trensformar de volta.
 
+        const arrayUserQuizzID = JSON.parse(localStorage.getItem("userQuizzID"));
+        
+        if(arrayUserQuizzID) {
+            let obj = {id: userQuizzID};
+            arrayUserQuizzID.push(obj);
+            localStorage.setItem("userQuizzID", JSON.stringify(arrayUserQuizzID)); // Envia essa string para o storege, depois se quisermos puxar e usar ela temos que trensformar de volta.
+        } else {
+            let newArrayUserQuizzID = JSON.stringify([{ id: userQuizzID }]);
+            localStorage.setItem("userQuizzID", newArrayUserQuizzID); // Envia essa string para o storege, depois se quisermos puxar e usar ela temos que trensformar de volta.
+        }
+    
         createQuizShowFourthScreen(response.data);
     });
     promise.catch((erro) => console.log("Erro ao criar quizz. Mensagem: " + erro));
@@ -401,8 +415,13 @@ function isValidHexColor(input) {
 }
   
 // apenas faz a logica de troca de tela para a tela de criação de quizz;
-function buttonCreateQuizz() {
-    resetCreateQuizScreen();
+function buttonCreateQuizz() { 
+    screen_1.style.display = 'none';
+    screen_3.style.display = 'flex';
+    screen_3_1.style.display = 'flex';
+    screen_3_2.style.display = 'none';
+    screen_3_3.style.display = 'none';
+    screen_3_4.style.display = 'none';
 }
 
 function createQuizShowSecondScreen() {
@@ -421,38 +440,6 @@ function createQuizShowThirdScreen() {
     screen_3_2.style.display = 'none';
     screen_3_3.style.display = 'flex';
     screen_3_4.style.display = 'none';
-}
-
-function resetCreateQuizScreen() {
-    screen_1.style.display = 'none';
-    screen_3.style.display = 'flex';
-    screen_3_1.style.display = 'flex';
-    screen_3_2.style.display = 'none';
-    screen_3_3.style.display = 'none';
-    screen_3_4.style.display = 'none';
-
-    cstmTitle = '';
-    cstmImage = '';
-    cstmQuestionCt = -1;
-    cstmLevelCt = -1;
-
-    questionText = '';
-    questionColor = '';
-    correctAnswerText = '';
-    correctAnswerImg = '';
-    wrongAnswer01Text = '';
-    wrongAnswer01Img = '';
-    wrongAnswer02Text = '';
-    wrongAnswer02Img = '';
-    wrongAnswer03Text = '';
-    wrongAnswer03Img = '';
-    arrayQuestios = [];
-
-    levelTitle = '';
-    levelPercentage = '';
-    levelImg = '';
-    levelDescription = '';
-    arrayLevels = [];
 }
 
 function createQuizShowFourthScreen(quizz) {
