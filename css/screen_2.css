@@ -77,6 +77,7 @@
 }
 
 .option{
+    word-wrap: break-word;
     width: 330px;
     height: auto;
     margin-top: 20px;
@@ -133,9 +134,11 @@
     color: #FFFFFF;
     background-color: #EC362D;
     font-size: 23px;
+    word-wrap: break-word;
 }
 
 .final{
+    word-wrap: break-word;
     width: 727px;
     margin-top: 20px;
     display: flex;
@@ -209,11 +212,13 @@
     }
     .options{
         width: 340px;
+        word-wrap: break-word;
     }
     .option{
         width: 163px;
         margin-top: 13px;
         font-size: 13px;
+        word-wrap: break-word;
     }
     .option img{
         height: 113px;
