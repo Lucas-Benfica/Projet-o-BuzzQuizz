@@ -30,7 +30,7 @@ function showAllQuizzes(quizzes) {
 
     let quizzUser = quizzes.find(quizz => {
         arrayUserQuizzID.forEach( id => {
-            if(id == arrayUserQuizzID.id){
+            if(id == quizz.id){
                 return true;
             }
             else{
@@ -39,6 +39,7 @@ function showAllQuizzes(quizzes) {
         });
     });
     quizzUser.forEach(quizz => {
+        console.log(quizz)
         userQuizz.innerHTML += `
                 <div data-test="others-quiz" class="quizz-card" id="${quizz.id}" onclick="openQuizz(this.id)"> 
                     <div></div> 
