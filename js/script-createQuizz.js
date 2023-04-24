@@ -114,20 +114,18 @@ function buttonDefineQuizzLevels() {
     let userInputIsValid = true;
     // variável para testar se existe um nível com valor de 0%
     let levelEqualsZero = false;
-
     for(let i = 0; i < cstmQuestionCt; i++) {
-        levelPercentage = document.getElementById(`level-${i+1}-percentage`).value;
-
+        // levelPercentage = document.getElementById(`level-${i+1}-percentage`).value;
         if(!customQuizzCheckUserInputQuestion(i+1)) {
             userInputIsValid = false;
             break;
         }
-        if(levelPercentage === 0) {
-            levelEqualsZero = true;
-        } else {alert("Deve existir um nível com valor de 0%"); break;}
+        // if(levelPercentage === 0) {
+        //     levelEqualsZero = true;
+        // } else {alert("Deve existir um nível com valor de 0%"); break;}
     }
 
-    if(userInputIsValid && levelEqualsZero) {
+    if(userInputIsValid) {
         questionArrayGenerator();
         createQuizzLevels(cstmLevelCt);
     }
@@ -202,22 +200,36 @@ function customQuizzCheckUserInputQuizzInit(title, img, questionCt, levelCt) {
     return true
 }
 
+// let elQuestion = document.querySelector(`.pergunta${questionNum}`);
+
+//     // check if valid: text, bgColor, img, answers
+//     questionText = elQuestion.children[0].children[1].value;
+//     questionColor = elQuestion.children[0].children[2].value;
+//     correctAnswerText = elQuestion.children[1].children[0].value;
+//     correctAnswerImg = elQuestion.children[2].children[0].children[1].value;
+//     wrongAnswer01Text = elQuestion.children[2].children[1].children[0].value;
+//     wrongAnswer01Img = delQuestion.children[2].children[1].children[1].value;
+//     wrongAnswer02Text = elQuestion.children[2].children[2].children[0].value;
+//     wrongAnswer02Img = elQuestion.children[2].children[2].children[1].value;
+//     wrongAnswer03Text = elQuestion.children[2].children[3].children[0].value;
+//     wrongAnswer03Img = elQuestion.children[2].children[3].children[1].value;
+
 // validar input de segunda tela de criação de quizz do usuário (perguntas)
 function customQuizzCheckUserInputQuestion(questionNum) {
-    // check if valid: text, bgColor, img, answers
-    questionText = document.getElementById(`question-${questionNum}-text`).value;
-    questionColor = document.getElementById(`question-${questionNum}-bgColor`).value;
-    correctAnswerText = document.getElementById(`question-${questionNum}-correctAnswer-text`).value;
-    correctAnswerImg = document.getElementById(`question-${questionNum}-correctAnswer-img`).value;
-    wrongAnswer01Text = document.getElementById(`question-${questionNum}-wrongAnswer01-text`).value;
-    wrongAnswer01Img = document.getElementById(`question-${questionNum}-wrongAnswer01-img`).value;
-    wrongAnswer02Text = document.getElementById(`question-${questionNum}-wrongAnswer02-text`).value;
-    wrongAnswer02Img = document.getElementById(`question-${questionNum}-wrongAnswer02-img`).value;
-    wrongAnswer03Text = document.getElementById(`question-${questionNum}-wrongAnswer03-text`).value;
-    wrongAnswer03Img = document.getElementById(`question-${questionNum}-wrongAnswer03-img`).value;
-    
-    // bem vindo ao inferninho de ifs. talvez um switch case teria sido mais elegante... mas já estava quase no fim quando pensei sobre...
+    let elQuestion = document.querySelector(`.pergunta${questionNum}`);
 
+    // check if valid: text, bgColor, img, answers
+    questionText = elQuestion.children[0].children[1].value;
+    questionColor = elQuestion.children[0].children[2].value
+    correctAnswerText = elQuestion.children[1].children[1].value;
+    correctAnswerImg = elQuestion.children[1].children[2].value;
+    wrongAnswer01Text = elQuestion.children[2].children[1].children[0].value;
+    wrongAnswer01Img = elQuestion.children[2].children[1].children[1].value;
+    wrongAnswer02Text = elQuestion.children[2].children[2].children[0].value;
+    wrongAnswer02Img = elQuestion.children[2].children[2].children[1].value;
+    wrongAnswer03Text = elQuestion.children[2].children[3].children[0].value;
+    wrongAnswer03Img = elQuestion.children[2].children[3].children[1].value;
+    
     if(questionText.length < 20 || questionText === null) {
         alert(`Texto da pergunta ${questionNum} deve ter mínimo de 20 caractéres`)
         return false
@@ -367,7 +379,6 @@ function axiosUploadQuizz(quizz) {
     promise.catch((erro) => console.log("Erro ao criar quizz. Mensagem: " + erro));
 }
 
-// peguei essa função pra checar se uma string é URL válida do Mr Gepeto... se alguém tiver uma solução mais "normal"... é nois! RegEx.... complicado...
 function isUrl(str) {
     const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
       '((([a-zA-Z\\d]([a-zA-Z\\d-]{0,61}[a-zA-Z\\d])?)\\.)+[a-zA-Z]{2,}|' + // domain name
@@ -380,17 +391,14 @@ function isUrl(str) {
 
 // também peguei essa validação de valor hexadecimal do Mr Gepeto...
 function isValidHexColor(input) {
-  // Check if input starts with #
   if (input.charAt(0) !== "#") {
     return false;
   }
 
-  // Check if input has the correct length
   if (input.length !== 4 && input.length !== 7) {
     return false;
   }
 
-  // Check if input contains only valid hexadecimal characters
   for (let i = 1; i < input.length; i++) {
     const charCode = input.charCodeAt(i);
     if (
@@ -402,7 +410,6 @@ function isValidHexColor(input) {
     }
   }
 
-  // If all checks pass, input is a valid hexadecimal color
   return true;
 }
   
