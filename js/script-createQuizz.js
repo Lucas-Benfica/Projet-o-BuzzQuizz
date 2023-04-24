@@ -99,10 +99,10 @@ function createQuizzLevels (levelCount) {
         screen_3_3.innerHTML += `
         <div data-test="" id="${i+1}" class="next-question boxLevel${i+1}" >
             <h1>Nível ${i+1}</h1>
-            <button data-test="toggle" onclick="toggleQuestionFormVisibility(this.parentElement.id)"><ion-icon name="create-outline" ></ion-icon></button>
+            <button data-test="toggle" onclick="toggleLevelsFormVisibility(this.parentElement.id)"><ion-icon name="create-outline" ></ion-icon></button>
         </div>
 
-        <div data-test="level-ctn" class="input-box questions levels level${i+1}">
+        <div data-test="level-ctn" class="input-box questions levels level${i+1} displayNone">
             <h1>Nível ${i+1}</h1>
             <input data-test="level-input" id="level-${i+1}-title" type="text" placeholder="Título do nível">
             <input data-test="level-percent-input" id="level-${i+1}-percentage" type="text" placeholder="% de acerto mínima">
@@ -110,6 +110,13 @@ function createQuizzLevels (levelCount) {
             <input data-test="level-description-input" id="level-${i+1}-description" type="text" placeholder="Descrição do nível">
         </div>`
     }
+
+    let level = document.querySelector(".level1");
+    level.classList.add("displayLevelActive");
+    level.classList.remove("displayNone");
+
+    let boxLevel = document.querySelector(`.boxLevel1`);
+    boxLevel.classList.add("displayBoxLevelNone");
 
     screen_3_3.innerHTML += `<button data-test="finish" onclick="buttonFinalizeQuizz()">Finalizar Quizz</button>`
 }
@@ -204,7 +211,6 @@ function customQuizzCheckUserInputQuizzInit(title, img, questionCt, levelCt) {
 
     return true
 }
-
 
 // validar input de segunda tela de criação de quizz do usuário (perguntas)
 function customQuizzCheckUserInputQuestion(questionNum) {
@@ -332,6 +338,22 @@ function toggleQuestionFormVisibility(id) {
 
     let newBoxQuestion = document.querySelector(`.boxPergunta${id}`);
     newBoxQuestion.classList.add("displayBoxNone");
+}
+
+function toggleLevelsFormVisibility(id) {
+    let levelCurrent = document.querySelector(".displayLevelActive");
+    levelCurrent.classList.remove("displayLevelActive");
+    levelCurrent.classList.add("displayNone");
+
+    let boxLevelCurrent = document.querySelector(".displayBoxLevelNone");
+    boxLevelCurrent.classList.remove("displayBoxLevelNone");
+
+    let newLevel = document.querySelector(`.level${id}`);
+    newLevel.classList.add("displayLevelActive");
+    newLevel.classList.remove("displayNone");
+
+    let newBoxLevel = document.querySelector(`.boxLevel${id}`);
+    newBoxLevel.classList.add("displayBoxLevelNone");
 }
 
 function buttonFinalizeQuizz() {

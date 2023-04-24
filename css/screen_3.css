@@ -176,6 +176,10 @@
     display: none;
 }
 
+.displayBoxLevelNone {
+    display: none;
+}
+
 .next-question button {
     background: none;
 	color: inherit;
