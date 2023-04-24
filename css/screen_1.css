@@ -30,9 +30,7 @@
     width: 100%;
     justify-content: left;
 }
-.quizz-user h1{
-    width: 30%;
-}
+
 .quizz-user button {
     background: none;
     border: none;
@@ -138,6 +136,9 @@
     font-size: 19px;
 }
 
+.quizz-user h1{
+   width: auto;
+}
 
 @media screen and (max-width: 1100px){
 
