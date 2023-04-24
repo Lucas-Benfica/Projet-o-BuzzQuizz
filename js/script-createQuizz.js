@@ -48,9 +48,9 @@ function createQuizQuestions(questionCount) {
     
     for (let i = 0; i <= questionCount; i++) {
         screen_3_2.innerHTML += `
-        <div data-test="question-ctn" data-test="toggle" id="${i+1}" class="next-question boxPergunta${i+1}" onclick="toggleQuestionFormVisibility(this.id)">
+        <div data-test="question-ctn" id="${i+1}" class="next-question boxPergunta${i+1}" >
             <h1>Pergunta ${i+1}</h1>
-            <ion-icon name="create-outline" ></ion-icon>
+            <ion-icon data-test="toggle" name="create-outline" onclick="toggleQuestionFormVisibility(this.parentElement.id)" ></ion-icon>
         </div>
 
         <div class="input-box questions placeholder pergunta${i+1} displayNone">
