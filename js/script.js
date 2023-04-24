@@ -17,6 +17,8 @@ function fetchAllQuizzes() {
 }
 
 // recebe array de todos os quizzes e faz a exibição
+
+
 function showAllQuizzes(quizzes) {
     const el = document.querySelector('.quizz-dashboard');
     el.innerHTML = '';
@@ -25,39 +27,35 @@ function showAllQuizzes(quizzes) {
     const userQuizz = document.querySelector('.quizz-create');
 
     if(arrayUserQuizzID !== null){
-        userQuizz.innerHTML = '';
+        
     }
 
-    let quizzUser = quizzes.find(quizz => {
-        arrayUserQuizzID.forEach( id => {
-            if(id == arrayUserQuizzID.id){
-                return true;
-            }
-            else{
-                return false;
-            }
-        });
-    });
-    quizzUser.forEach(quizz => {
-        userQuizz.innerHTML += `
-                <div data-test="others-quiz" class="quizz-card" id="${quizz.id}" onclick="openQuizz(this.id)"> 
-                    <div></div> 
-                    <img src="${quizz.image}" alt="${quizz.title}">
-                    <p>${quizz.title}</p>
-                </div>
-        `;
-    })
-
     quizzes.forEach(quizz => {
-        
-        el.innerHTML += `
+
+        let existeUserQuizz = 0;
+
+        for( let i=0; i < arrayUserQuizzID.length; i++){
+            if(quizz.id == arrayUserQuizzID.id){
+                userQuizz.innerHTML += `
+                    <div data-test="others-quiz" class="quizz-card" id="${quizz.id}" onclick="openQuizz(this.id)"> 
+                        <div></div> 
+                        <img src="${quizz.image}" alt="${quizz.title}">
+                        <p>${quizz.title}</p>
+                    </div>
+                `;
+                existeUserQuizz = 1;
+            }
+        }
+
+        if(existeUserQuizz == 0){
+            el.innerHTML += `
                 <div data-test="others-quiz" class="quizz-card" id="${quizz.id}" onclick="openQuizz(this.id)"> 
                     <div></div> 
                     <img src="${quizz.image}" alt="${quizz.title}">
                     <p>${quizz.title}</p>
                 </div>
-            `
-        
+            `;
+        }
     });
 }
 
