@@ -77,7 +77,7 @@ function playQuizz(quizz){
                     `
                 })
         questionsScreen.innerHTML += `
-        <div data-test="question>
+        <div data-test="question">
             <div data-test="question-title" id="${cont}" class="ask" style="background-color: ${question.color}";>
                 <p>${question.title}</p>
             </div>
