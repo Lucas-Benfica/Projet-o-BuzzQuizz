@@ -31,7 +31,7 @@
     justify-content: left;
 }
 .quizz-user h1{
-    width: 30%;
+    width: 100%;
 }
 .quizz-user button {
     background: none;
@@ -156,6 +156,17 @@
     }
     .quizz-everything {
         width: 80%;
+    }
+
+    .quizz-everything h1 {
+        font-weight: 700;
+        font-size: 20px;
+        color: #000000;
+        text-align: left;
+    }
+
+    .quizz-dashboard {
+        justify-content: center;
     }
 
     
