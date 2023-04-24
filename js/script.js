@@ -21,14 +21,43 @@ function showAllQuizzes(quizzes) {
     const el = document.querySelector('.quizz-dashboard');
     el.innerHTML = '';
 
+    const arrayUserQuizzID = JSON.parse(localStorage.getItem("userQuizzID"));
+    const userQuizz = document.querySelector('.quizz-create');
+
+    if(arrayUserQuizzID !== null){
+        userQuizz.innerHTML = '';
+    }
+
+    let quizzUser = quizzes.find(quizz => {
+        arrayUserQuizzID.forEach( id => {
+            if(id == arrayUserQuizzID.id){
+                return true;
+            }
+            else{
+                return false;
+            }
+        });
+    });
+    quizzUser.forEach(quizz => {
+        userQuizz.innerHTML += `
+                <div data-test="others-quiz" class="quizz-card" id="${quizz.id}" onclick="openQuizz(this.id)"> 
+                    <div></div> 
+                    <img src="${quizz.image}" alt="${quizz.title}">
+                    <p>${quizz.title}</p>
+                </div>
+        `;
+    })
+
     quizzes.forEach(quizz => {
+        
         el.innerHTML += `
-            <div data-test="others-quiz" class="quizz-card" id="${quizz.id}" onclick="openQuizz(this.id)"> 
-                <div></div> 
-                <img src="${quizz.image}" alt="${quizz.title}">
-                <p>${quizz.title}</p>
-            </div>
-        `
+                <div data-test="others-quiz" class="quizz-card" id="${quizz.id}" onclick="openQuizz(this.id)"> 
+                    <div></div> 
+                    <img src="${quizz.image}" alt="${quizz.title}">
+                    <p>${quizz.title}</p>
+                </div>
+            `
+        
     });
 }
 
