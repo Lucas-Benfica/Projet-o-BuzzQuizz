@@ -123,6 +123,7 @@
         overflow-x: hidden;
     }
     .quizz-create {
+        max-width: 1050px;;
         width: 80%;
         margin-top: 110px;
     }

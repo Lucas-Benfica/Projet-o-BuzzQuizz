@@ -23,7 +23,7 @@ function showAllQuizzes(quizzes) {
 
     quizzes.forEach(quizz => {
         el.innerHTML += `
-            <div class="quizz-card" id="${quizz.id}" onclick="openQuizz(this.id)" data-test="others-quiz"> 
+            <div data-test="others-quiz" class="quizz-card" id="${quizz.id}" onclick="openQuizz(this.id)"> 
                 <div></div> 
                 <img src="${quizz.image}" alt="${quizz.title}">
                 <p>${quizz.title}</p>
@@ -70,18 +70,18 @@ function playQuizz(quizz){
         let texto = '';
         options.forEach( option => {
                     texto += `
-                    <div data-test="answer" class="option ${option.isCorrectAnswer}" onclick="checkAnswer(this, ${cont})">
+                    <div data-test="answer"  class="option ${option.isCorrectAnswer}" onclick="checkAnswer(this, ${cont})">
                         <img src="${option.image}">
-                        <div>${option.text}</div>
+                        <div data-test="answer-text">${option.text}</div>
                     </div>
                     `
                 })
         questionsScreen.innerHTML += `
-        <div>
+        <div data-test="question>
             <div data-test="question-title" id="${cont}" class="ask" style="background-color: ${question.color}";>
                 <p>${question.title}</p>
             </div>
-            <div data-test="answer-text" class="options ${cont}">
+            <div class="options ${cont}">
             ${texto}       
             </div>
         </div>
