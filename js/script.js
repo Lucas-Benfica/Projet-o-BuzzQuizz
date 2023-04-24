@@ -41,7 +41,7 @@ function showAllQuizzes(quizzes) {
         if(arrayUserQuizzID){
             for( let i=0; i < arrayUserQuizzID.length; i++){
                 if(quizz.id == arrayUserQuizzID[i].id){
-                    userQuizz.innerHTML += `
+                    caixa.innerHTML += `
                         <div data-test="others-quiz" class="quizz-card" id="${quizz.id}" onclick="openQuizz(this.id)"> 
                             <div></div> 
                             <img src="${quizz.image}" alt="${quizz.title}">
