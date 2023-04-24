@@ -46,7 +46,7 @@ function buttonInitializeUserQuizz() {
 function createQuizQuestions(questionCount) {
     createQuizShowSecondScreen();
     
-    for (let i = 0; i < questionCount; i++) {
+    for (let i = 0; i <= questionCount; i++) {
         screen_3_2.innerHTML += `
         <div data-test="question-ctn" data-test="toggle" id="${i+1}" class="next-question boxPergunta${i+1}" onclick="toggleQuestionFormVisibility(this.id)">
             <h1>Pergunta ${i+1}</h1>
@@ -200,19 +200,6 @@ function customQuizzCheckUserInputQuizzInit(title, img, questionCt, levelCt) {
     return true
 }
 
-// let elQuestion = document.querySelector(`.pergunta${questionNum}`);
-
-//     // check if valid: text, bgColor, img, answers
-//     questionText = elQuestion.children[0].children[1].value;
-//     questionColor = elQuestion.children[0].children[2].value;
-//     correctAnswerText = elQuestion.children[1].children[0].value;
-//     correctAnswerImg = elQuestion.children[2].children[0].children[1].value;
-//     wrongAnswer01Text = elQuestion.children[2].children[1].children[0].value;
-//     wrongAnswer01Img = delQuestion.children[2].children[1].children[1].value;
-//     wrongAnswer02Text = elQuestion.children[2].children[2].children[0].value;
-//     wrongAnswer02Img = elQuestion.children[2].children[2].children[1].value;
-//     wrongAnswer03Text = elQuestion.children[2].children[3].children[0].value;
-//     wrongAnswer03Img = elQuestion.children[2].children[3].children[1].value;
 
 // validar input de segunda tela de criação de quizz do usuário (perguntas)
 function customQuizzCheckUserInputQuestion(questionNum) {
