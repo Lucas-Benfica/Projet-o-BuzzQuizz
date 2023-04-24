@@ -20,14 +20,16 @@ function fetchAllQuizzes() {
 
 
 function showAllQuizzes(quizzes) {
-    const el = document.querySelector('.quizz-dashboard');
+    const el = document.querySelector('.allQuizz');
     el.innerHTML = '';
 
     const arrayUserQuizzID = JSON.parse(localStorage.getItem("userQuizzID"));
     const userQuizz = document.querySelector('.quizz-create');
+    const caixa = document.querySelector('.userQuizz');
 
     if(arrayUserQuizzID !== null){
-        userQuizz.innerHTML = '';
+        userQuizz.style.display = 'none';
+        caixa.style.display = 'flex';
     }
 
     console.log(arrayUserQuizzID);
