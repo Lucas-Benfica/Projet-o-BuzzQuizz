@@ -169,11 +169,11 @@ function finishedQuizz(levels, right, questions) {
 
     setTimeout(() => {    
         result_session.innerHTML += `
-            <div class="nota" data-test="level-title">
+            <div data-test="level-title" class="nota">
                 ${hitPercentage}% de acerto: ${level.title}
             </div>
-            <div class="final" data-test="level-img">
-                <img src="${level.image}">
+            <div class="final">
+                <img data-test="level-img" src="${level.image}">
                 <div data-test="level-text">${level.text}</div>
             </div>
         `;    
