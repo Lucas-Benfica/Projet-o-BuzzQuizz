@@ -23,7 +23,7 @@ function showAllQuizzes(quizzes) {
 
     quizzes.forEach(quizz => {
         el.innerHTML += `
-            <div class="quizz-card" id="${quizz.id}" onclick="openQuizz(this.id)"> 
+            <div class="quizz-card" id="${quizz.id}" onclick="openQuizz(this.id)" data-test="others-quiz"> 
                 <div></div> 
                 <img src="${quizz.image}" alt="${quizz.title}">
                 <p>${quizz.title}</p>
@@ -55,7 +55,7 @@ function playQuizz(quizz){
     const title = document.querySelector('.quizz-name');
     title.innerHTML = '';
     title.innerHTML += `
-        <div><p>${quizz.data.title}</p></div>
+        <div data-test="banner"><p>${quizz.data.title}</p></div>
         <img src=${quizz.data.image} alt="">
     `;
 
@@ -70,7 +70,7 @@ function playQuizz(quizz){
         let texto = '';
         options.forEach( option => {
                     texto += `
-                    <div class="option ${option.isCorrectAnswer}" onclick="checkAnswer(this, ${cont})">
+                    <div data-test="answer" class="option ${option.isCorrectAnswer}" onclick="checkAnswer(this, ${cont})">
                         <img src="${option.image}">
                         <div>${option.text}</div>
                     </div>
@@ -78,10 +78,10 @@ function playQuizz(quizz){
                 })
         questionsScreen.innerHTML += `
         <div>
-            <div id="${cont}" class="ask" style="background-color: ${question.color}";>
+            <div data-test="question-title" id="${cont}" class="ask" style="background-color: ${question.color}";>
                 <p>${question.title}</p>
             </div>
-            <div  class="options ${cont}">
+            <div data-test="answer-text" class="options ${cont}">
             ${texto}       
             </div>
         </div>
@@ -96,8 +96,8 @@ function playQuizz(quizz){
     const buttons = document.querySelector('.buttons');
     buttons.innerHTML = '';
     buttons.innerHTML += `
-        <div class="restart" onclick="restart()">Reiniciar Quiz</div>
-        <div class="back" onclick="back()">Voltar para home</div>
+        <div data-test="restart" class="restart" onclick="restart()">Reiniciar Quiz</div>
+        <div data-test="go-home" class="back" onclick="back()">Voltar para home</div>
     `;
     
 }
@@ -169,12 +169,12 @@ function finishedQuizz(levels, right, questions) {
 
     setTimeout(() => {    
         result_session.innerHTML += `
-            <div class="nota">
+            <div class="nota" data-test="level-title">
                 ${hitPercentage}% de acerto: ${level.title}
             </div>
-            <div class="final">
+            <div class="final" data-test="level-img">
                 <img src="${level.image}">
-                <div>${level.text}</div>
+                <div data-test="level-text">${level.text}</div>
             </div>
         `;    
 
