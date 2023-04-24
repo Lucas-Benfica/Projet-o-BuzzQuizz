@@ -67,6 +67,9 @@ function openQuizz(id) {
     let screen_1 = document.querySelector('.tela-1');
     screen_1.style.display = 'none';
 
+    let screen_3 = document.querySelector('.tela-3');
+    screen_3.style.display = 'none';
+
     let screen_2 = document.querySelector('.tela-2');
     screen_2.style.display = 'flex';
 

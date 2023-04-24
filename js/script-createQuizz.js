@@ -454,7 +454,7 @@ function createQuizShowFourthScreen(quizz) {
     screen_3_4.style.display = 'flex';
 
     const el = document.querySelector(".tela-3-4");
-    console.log("QUIZZ VINDO -> " + quizz)
+    console.log(quizz)
 
     el.innerHTML = `
     <h1>Seu quizz está pronto!</h1>
@@ -463,7 +463,7 @@ function createQuizShowFourthScreen(quizz) {
         <img src="${quizz.image}" alt="${quizz.title}">
         <p>${quizz.title}</p>
     </div>
-    <button id="${quizz.id}" onclick="openQuizz(this.id)">Acessar Quizz</button>
+    <button id="${quizz.id}" onclick="openQuizz(${quizz.id})">Acessar Quizz</button>
     <button class="button-home" onclick="back()">Voltar pra home</button>
     `
 }
